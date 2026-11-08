@@ -1,0 +1,22 @@
+[
+  {
+    "content": "Inspect GDScript files for parse errors reported by Godot",
+    "active_form": "Inspecting GDScript files for parse errors",
+    "status": "completed"
+  },
+  {
+    "content": "Fix GDScript errors in event_bus, zombie, board, seed_bar, seed_slot, sun, pea, and peashooter",
+    "active_form": "Fixing identified GDScript parse errors",
+    "status": "completed"
+  },
+  {
+    "content": "Verify all scripts in the project for syntactic and logical correctness",
+    "active_form": "Verifying project codebase",
+    "status": "completed"
+  },
+  {
+    "content": "Update documentation and report fixes to user",
+    "active_form": "Updating documentation and reporting to user",
+    "status": "completed"
+  }
+]

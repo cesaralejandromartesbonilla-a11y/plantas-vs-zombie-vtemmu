@@ -1,0 +1,62 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scenes/main/main.gd" id="1_main"]
+[ext_resource type="PackedScene" path="res://scenes/board/board.tscn" id="2_board"]
+[ext_resource type="PackedScene" path="res://ui/hud.tscn" id="3_hud"]
+[ext_resource type="Script" path="res://scenes/sun/sun_spawner.gd" id="4_sunspawner"]
+[ext_resource type="PackedScene" path="res://ui/menus/victory_screen.tscn" id="5_victory"]
+[ext_resource type="PackedScene" path="res://ui/menus/defeat_screen.tscn" id="6_defeat"]
+
+[ext_resource type="PackedScene" path="res://ui/menus/pause_screen.tscn" id="7_pause"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_debug"]
+bg_color = Color(0.2, 0.25, 0.15, 0.85)
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_main")
+groups = ["main"]
+
+[node name="Backdrop" type="ColorRect" parent="."]
+offset_left = -640.0
+offset_top = -360.0
+offset_right = 640.0
+offset_bottom = 360.0
+mouse_filter = 2
+color = Color(0.29, 0.23, 0.15, 1)
+
+[node name="Board" parent="." instance=ExtResource("2_board")]
+position = Vector2(640, 360)
+groups = ["board"]
+
+[node name="SunLayer" type="Node2D" parent="."]
+groups = ["sun_layer"]
+script = ExtResource("4_sunspawner")
+
+[node name="SpawnTimer" type="Timer" parent="SunLayer"]
+wait_time = 3.0
+
+[node name="Entities" type="Node2D" parent="."]
+groups = ["entities"]
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="UI" instance=ExtResource("3_hud")]
+
+[node name="VictoryScreen" parent="UI" instance=ExtResource("5_victory")]
+
+[node name="DefeatScreen" parent="UI" instance=ExtResource("6_defeat")]
+
+[node name="PauseScreen" parent="UI" instance=ExtResource("7_pause")]
+
+[node name="DebugPanel" type="PanelContainer" parent="UI"]
+offset_left = 1100.0
+offset_top = 8.0
+offset_right = 1272.0
+offset_bottom = 60.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_debug")
+
+[node name="FpsLabel" type="Label" parent="UI/DebugPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "FPS: -"

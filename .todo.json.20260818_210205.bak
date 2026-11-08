@@ -1,0 +1,47 @@
+[
+  {
+    "content": "Fase 1: Arreglar bug en cell.gd (setup antes de add_child) y revisar integración",
+    "active_form": "Arreglando bug de cell.gd",
+    "status": "in_progress"
+  },
+  {
+    "content": "Fase 1: Validar proyecto con Godot headless (errores de parseo/script)",
+    "active_form": "Validando proyecto con Godot headless",
+    "status": "pending"
+  },
+  {
+    "content": "Fase 2: Crear SunBank (autoload de economía, empieza en 50)",
+    "active_form": "Creando SunBank",
+    "status": "pending"
+  },
+  {
+    "content": "Fase 2: Crear escena Sun (cae del cielo, recogible con clic, vuela al HUD)",
+    "active_form": "Creando escena Sun",
+    "status": "pending"
+  },
+  {
+    "content": "Fase 2: Crear lluvia de sol del cielo (spawner ~10s)",
+    "active_form": "Creando spawner de sol",
+    "status": "pending"
+  },
+  {
+    "content": "Fase 2: Crear HUD con contador de sol (hud.tscn + icono)",
+    "active_form": "Creando HUD de sol",
+    "status": "pending"
+  },
+  {
+    "content": "Fase 2: Crear Girasol (planta base + PlantData resource) plantado de prueba",
+    "active_form": "Creando girasol de prueba",
+    "status": "pending"
+  },
+  {
+    "content": "Fase 2: Integrar todo en Main y project.godot",
+    "active_form": "Integrando Fase 2 en Main",
+    "status": "pending"
+  },
+  {
+    "content": "Actualizar todo.md, .todo.json y hoja de ruta",
+    "active_form": "Actualizando documentación",
+    "status": "pending"
+  }
+]

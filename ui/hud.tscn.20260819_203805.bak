@@ -1,0 +1,65 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://ui/hud.gd" id="1_hud"]
+[ext_resource type="Script" path="res://ui/sun_icon.gd" id="2_icon"]
+[ext_resource type="PackedScene" path="res://ui/seed_bar.tscn" id="3_seedbar"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sun"]
+bg_color = Color(0.14, 0.2, 0.1, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.95, 0.85, 0.3, 0.9)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+content_margin_left = 12.0
+content_margin_top = 6.0
+content_margin_right = 16.0
+content_margin_bottom = 6.0
+
+[node name="HUD" type="Control"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_hud")
+
+[node name="SunPanel" type="PanelContainer" parent="."]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 216.0
+offset_bottom = 66.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sun")
+
+[node name="HBox" type="HBoxContainer" parent="SunPanel"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 10
+
+[node name="SunIcon" type="Control" parent="SunPanel/HBox"]
+custom_minimum_size = Vector2(28, 28)
+layout_mode = 2
+mouse_filter = 2
+script = ExtResource("2_icon")
+
+[node name="SunLabel" type="Label" parent="SunPanel/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 0.95, 0.6, 1)
+theme_override_font_sizes/font_size = 24
+text = "50"
+vertical_alignment = 1
+
+[node name="SunAnchor" type="Node2D" parent="."]
+position = Vector2(102, 25)
+groups = ["sun_anchor"]
+
+[node name="SeedBar" parent="." instance=ExtResource("3_seedbar")]
+position = Vector2(16, 80)

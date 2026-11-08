@@ -1,0 +1,195 @@
+extends Node2D
+
+## Board — Grilla de juego 9 columnas × 5 filas (Fase 1).
+##
+## Genera las celdas (instancias de cell.tscn), las posiciona en el mundo y
+## mantiene el arreglo `cells[5][9]` que en fases posteriores guardará la
+## referencia a la planta ocupante o null.
+##
+## Coordenadas de celda:
+##   - col 0..8  (de izquierda a derecha)
+##   - row 0..4  (de arriba a abajo)
+##
+## Tamaños (constantes del MVP):
+##   - Celda: 80 x 100 px
+##   - Board completo: 720 x 500 px
+## El origen local (0,0) del Board coincide con su centro; el lado superior
+## izquierdo está en -BOARD_SIZE/2.
+
+signal cell_hovered(col: int, row: int)
+
+const CELL_SIZE := Vector2(80, 100)
+const COLS := 9
+const ROWS := 5
+const BOARD_SIZE := Vector2(CELL_SIZE.x * COLS, CELL_SIZE.y * ROWS)
+
+const CELL_SCENE := preload("res://scenes/board/cell.tscn")
+
+const COLOR_LAWN_A := Color(0.35, 0.75, 0.3, 1.0)
+const COLOR_LAWN_B := Color(0.42, 0.78, 0.36, 1.0)
+const COLOR_EDGE := Color(0.20, 0.45, 0.18, 1.0)
+
+## cells[row][col] -> Cell (referencia al nodo).
+var cells: Array = []
+
+## Semilla seleccionada (que está a la espera de click en una celda),
+## o &"" si no hay ninguna. Una planta por celda la valida `can_plant`.
+var pending_seed: StringName = &""
+
+func _ready() -> void:
+	_build_lawn_background()
+	_build_cells()
+	EventBus.cell_clicked.connect(_on_cell_clicked)
+	EventBus.seed_selected.connect(_on_seed_selected)
+	EventBus.plant_destroyed.connect(_on_plant_destroyed)
+
+## Devuelve el centro LOCAL de la celda (col, row) dentro del Board.
+func cell_center(col: int, row: int) -> Vector2:
+	var top_left := -BOARD_SIZE / 2.0
+	return top_left + Vector2(CELL_SIZE.x * (col + 0.5), CELL_SIZE.y * (row + 0.5))
+
+## Devuelve el centro GLOBAL (mundo) de la celda (col, row).
+## Útil para instanciar plantas/zombies dentro de otras escenas.
+func world_center(col: int, row: int) -> Vector2:
+	return to_global(cell_center(col, row))
+
+## ¿La coordenada (col, row) es válida dentro del board?
+func is_valid(col: int, row: int) -> bool:
+	return col >= 0 and col < COLS and row >= 0 and row < ROWS
+
+## La celda en (col, row) — null si fuera del tablero.
+func get_cell(col: int, row: int) -> Area2D:
+	if not is_valid(col, row):
+		return null
+	return cells[row][col]
+
+## Convierte una posición del mundo a coordenadas de celda (col, row),
+## o (-1, -1) si está fuera del tablero. Útil para previews en fases posteriores.
+func world_to_cell(world_pos: Vector2) -> Vector2i:
+	var local := to_local(world_pos) + BOARD_SIZE / 2.0
+	var col := int(local.x / CELL_SIZE.x)
+	var row := int(local.y / CELL_SIZE.y)
+	if is_valid(col, row):
+		return Vector2i(col, row)
+	return Vector2i(-1, -1)
+
+## Planta que ocupa la celda (col, row), o null si está vacía.
+func plant_at(col: int, row: int) -> Plant:
+	var cell: Area2D = get_cell(col, row)
+	if cell == null:
+		return null
+	return cell.plant
+
+## ¿Se puede plantar la semilla `seed_id` en esta celda?
+## (Existe la semilla, la celda es válida y está vacía, y hay sol.)
+func can_plant(seed_id: StringName, col: int, row: int) -> bool:
+	if seed_id == &"" or not PlantLibrary.has_seed(seed_id):
+		return false
+	if not is_valid(col, row):
+		return false
+	if plant_at(col, row) != null:
+		return false
+	return SunBank.can_afford(PlantLibrary.get_data(seed_id).cost)
+
+## Fase 3: instancia la planta de la semilla en la celda (col, row) y la
+## registra. Devuelve la planta creada o null si no se pudo.
+func plant(seed_id: StringName, col: int, row: int) -> Plant:
+	if not can_plant(seed_id, col, row):
+		return null
+	var scene: PackedScene = PlantLibrary.get_scene(seed_id)
+	if scene == null:
+		return null
+	var plant: Plant = scene.instantiate()
+	plant.setup(col, row)
+	plant.global_position = world_center(col, row)
+	# La añade al árbol ANTES de set_plant (los @onready de la planta corren).
+	get_tree().get_first_node_in_group("entities").add_child(plant)
+	_cell(col, row).set_plant(plant)
+	EventBus.plant_planted.emit(plant, col, row)
+	return plant
+
+## Registra la planta en su celda (público para que Main la inserte).
+func register_plant(plant: Plant) -> void:
+	var cell: Area2D = get_cell(plant.col, plant.row)
+	if cell:
+		cell.set_plant(plant)
+
+func _cell(col: int, row: int) -> Area2D:
+	return cells[row][col] if is_valid(col, row) else null
+
+func _on_seed_selected(seed_id: StringName) -> void:
+	pending_seed = seed_id
+	_refresh_previews()
+
+## Si la semilla seleccionada se deselecciona, limpiamos previews.
+func _on_pending_cleared() -> void:
+	if pending_seed != &"":
+		pending_seed = &""
+		_refresh_previews()
+
+## Fase 3: al destruirse una planta se libera su celda.
+func _on_plant_destroyed(plant: Node) -> void:
+	if plant is Plant:
+		var cell: Area2D = _cell(plant.col, plant.row)
+		if cell:
+			cell.clear_plant()
+
+## Pinta preview verde/rojo en TODAS las celdas según la semilla pendiente
+## (verde = se puede plantar, rojo = no se puede). Sin semilla, limpia.
+func _refresh_previews() -> void:
+	for row in ROWS:
+		for col in COLS:
+			var cell: Area2D = _cell(col, row)
+			if pending_seed == &"":
+				cell.set_preview(Cell.PREVIEW_NONE)
+			elif can_plant(pending_seed, col, row):
+				cell.set_preview(Cell.PREVIEW_OK)
+			else:
+				cell.set_preview(Cell.PREVIEW_BAD)
+
+func _build_lawn_background() -> void:
+	var top_left := -BOARD_SIZE / 2.0
+
+	# Relleno principal.
+	var lawn := ColorRect.new()
+	lawn.size = BOARD_SIZE
+	lawn.position = top_left
+	lawn.color = COLOR_LAWN_A
+	lawn.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(lawn)
+
+	# Filas alternas más claras (efecto césped rayado).
+	for row in ROWS:
+		if row % 2 == 0:
+			continue
+		var stripe := ColorRect.new()
+		stripe.size = Vector2(BOARD_SIZE.x, CELL_SIZE.y)
+		stripe.position = top_left + Vector2(0.0, row * CELL_SIZE.y)
+		stripe.color = COLOR_LAWN_B
+		stripe.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		add_child(stripe)
+
+	# Marco/borde (se dibuja detrás del césped).
+	var edge := 4.0
+	var frame := ColorRect.new()
+	frame.size = BOARD_SIZE + Vector2(edge * 2.0, edge * 2.0)
+	frame.position = top_left - Vector2(edge, edge)
+	frame.color = COLOR_EDGE
+	frame.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(frame)
+	frame.move_to_back()
+
+func _build_cells() -> void:
+	for row in ROWS:
+		var row_arr: Array = []
+		for col in COLS:
+			var cell: Area2D = CELL_SCENE.instantiate()
+			cell.setup(col, row)
+			cell.position = cell_center(col, row)
+			add_child(cell)
+			row_arr.append(cell)
+		cells.append(row_arr)
+
+func _on_cell_clicked(col: int, row: int) -> void:
+	# Fase 1: validación y log de debug (criterio de aceptación).
+	print("[Board] Celda clicada -> col=%d, fila=%d" % [col, row])

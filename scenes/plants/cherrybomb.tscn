@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid://dl9k7kpjxq1r10]
+
+[ext_resource type="Script" path="res://scenes/plants/cherrybomb.gd" id="1_cherrybomb"]
+
+[resource]
+script = ExtResource("1_cherrybomb")
+data = ExtResource("1_data")
+
+[sub_resource type="Resource" id="1_data"]
+script_class = "PlantData"
+id = &"cherrybomb"
+display_name = "Cereza Bomba"
+cost = 150
+cooldown = 50.0
+max_hp = 300
+explode_radius = 3
+explode_damage = 1800

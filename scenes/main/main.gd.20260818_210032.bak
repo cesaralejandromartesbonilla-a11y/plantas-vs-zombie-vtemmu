@@ -1,0 +1,11 @@
+extends Node2D
+
+## Main — Raíz de la partida.
+##
+## Fase 1: instancia el Board (grilla 9x5) sobre un fondo y muestra FPS.
+## En fases siguientes aquí se añadirán el HUD y demás sistemas.
+
+@onready var fps_label: Label = %FpsLabel
+
+func _process(_delta: float) -> void:
+	fps_label.text = "FPS: %d" % Engine.get_frames_per_second()

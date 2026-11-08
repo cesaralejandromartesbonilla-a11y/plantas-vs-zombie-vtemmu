@@ -1,0 +1,102 @@
+extends HBoxContainer
+
+## SeedBar — Barra de semillas del HUD (Fase 3).
+##
+## Crea una ranura (SeedSlot) por semilla registrada en PlantLibrary y
+## gestiona la selección: solo una activa a la vez, con deselección al
+## volver a pulsar la misma ranura o al pulsar clic derecho.
+##
+## Flujo de siembra: la selección se publica por EventBus.seed_selected;
+## el Main escucha y planta al hacer clic en una celda válida. Los slots
+## se refrescan al cambiar el sol (para el estado "sin sol").
+
+signal seed_deselected
+
+## Orden de presentación de las semillas en la barra.
+const SEED_ORDER: Array[StringName] = [&"sunflower", &"peashooter", &"wallnut", &"snowpea", &"repeater", &"cherrybomb"]
+
+## seed_id -> SeedSlot
+var slots: Dictionary = {}
+
+var _current_seed: StringName = &""
+var _prev_sun: int = -9999
+
+func _ready() -> void:
+	_build_slots()
+	EventBus.sun_changed.connect(_on_sun_changed)
+	EventBus.cell_clicked.connect(_on_cell_clicked)
+
+func _build_slots() -> void:
+	var slot_scene := preload("res://ui/seed_slot.tscn")
+	for seed_id: StringName in SEED_ORDER:
+		if not PlantLibrary.has_seed(seed_id):
+			continue
+		var slot: SeedSlot = slot_scene.instantiate()
+		slot.setup(seed_id)
+		slot.slot_pressed.connect(_on_slot_pressed)
+		add_child(slot)
+		slots[seed_id] = slot
+
+## Semilla actualmente seleccionada, o &"" si ninguna.
+func current_seed() -> StringName:
+	return _current_seed
+
+## Intenta seleccionar/deseleccionar una semilla.
+func select_seed(seed_id: StringName) -> void:
+	if _current_seed == seed_id:
+		_clear_selection()
+		return
+	_select(seed_id)
+
+func _on_slot_pressed(seed_id: StringName) -> void:
+	select_seed(seed_id)
+
+## Tras sembrar, se vacía la selección (una planta por clic).
+func clear_selection() -> void:
+	_clear_selection()
+
+## Pone en cooldown la ranura `seed_id` (lo llama Main al plantar).
+func start_cooldown(seed_id: StringName) -> void:
+	var slot: SeedSlot = slots.get(seed_id)
+	if slot:
+		slot.start_cooldown()
+	_refresh_slots()
+
+func _select(seed_id: StringName) -> void:
+	for key: StringName in slots:
+		var slot: SeedSlot = slots[key]
+		slot.set_selected(key == seed_id)
+	_current_seed = seed_id
+	EventBus.seed_selected.emit(seed_id)
+
+func _clear_selection() -> void:
+	_current_seed = &""
+	for key: StringName in slots:
+		slots[key].set_selected(false)
+	seed_deselected.emit()
+	# El Board se entera de que ya no hay semilla pendiente (limpia previews).
+	EventBus.seed_selected.emit(&"")
+
+## Si había una semilla y se clica una celda, la siembra la gestiona Main
+## (que escucha cell_clicked). Aquí solo refrescamos estados.
+func _on_cell_clicked(_col: int, _row: int) -> void:
+	_refresh_slots()
+
+## Actualiza el estado "sin sol" de cada ranura.
+func _on_sun_changed(total: int) -> void:
+	# Evitar redibujar en cada cambio si el total no varía.
+	if total == _prev_sun:
+		return
+	_prev_sun = total
+	_refresh_slots()
+
+func _refresh_slots() -> void:
+	for key: StringName in slots:
+		slots[key].refresh()
+
+func _unhandled_input(event: InputEvent) -> void:
+	# Clic derecho cancela la selección.
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
+		if _current_seed != &"":
+			_clear_selection()
+			get_viewport().set_input_as_handled()

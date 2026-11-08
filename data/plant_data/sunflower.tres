@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PlantData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/plant_data.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+id = &"sunflower"
+display_name = "Girasol"
+cost = 50
+cooldown = 7.5
+max_hp = 300
+sun_interval = 24.0
+sun_amount = 25

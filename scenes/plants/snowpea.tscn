@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid://dl9k7kpjxq1r7]
+
+[ext_resource type="Script" path="res://scenes/plants/snowpea.gd" id="1_snowpea"]
+
+[resource]
+script = ExtResource("1_snowpea")
+data = ExtResource("1_data")
+
+[sub_resource type="Resource" id="1_data"]
+script_class = "PlantData"
+id = &"snowpea"
+display_name = "Lanzaguisantes de Hielo"
+cost = 175
+cooldown = 7.5
+max_hp = 300
+pea_damage = 20
+fire_interval = 1.4
+slow_factor = 0.5
+slow_duration = 3.0

@@ -1,0 +1,10 @@
+# Todo
+
+- ✅ Explorar estructura actual del proyecto
+- ✅ Revisar archivos clave (main, board, plant, hud, sun_bank)
+- ✅ Fase 3: Barra de semillas + siembra + costos (ya en código)
+- 🔄 Fase 4: Crear guisante (pea.gd/.tscn) con colisión por fila
+- ⬜ Fase 4: Lanzaguisantes dispara (peashooter.gd)
+- ⬜ Fase 4/5: Zombie básico (zombie.gd/.tscn) — camina, come, muere, casa
+- ⬜ Integrar en main.gd: zombie de prueba + hotkeys debug (Z/G/T)
+- ⬜ Actualizar docs (hoja de ruta, todo.md)

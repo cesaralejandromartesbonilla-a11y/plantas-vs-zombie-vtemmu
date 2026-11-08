@@ -1,0 +1,142 @@
+extends Button
+
+## SeedSlot — Ranura de semilla de la SeedBar (Fase 3).
+##
+## Muestra el nombre y el costo de la semilla, y durante el cooldown dibuja
+## una cortina gris que se vacía junto con los segundos restantes.
+## El templado de la ranura lo hace la SeedBar vía `setup()`.
+##
+## Estados visuales:
+##   - Normal: fondo verde botánico + texto claro.
+##   - Sin sol: fondo gris verdoso + costo en rojo (no clicable).
+##   - Cooldown: cortina gris que baja + icono de recarga + tiempo restante.
+##   - Seleccionada: fondo amarillo (la SeedBar la marca con set_selected()).
+
+signal slot_pressed(seed_id: StringName)
+
+const COLOR_BG := Color(0.22, 0.42, 0.2, 0.95)
+const COLOR_BG_LOW_SUN := Color(0.3, 0.34, 0.28, 0.95)
+const COLOR_BG_SELECTED := Color(0.85, 0.8, 0.35, 1.0)
+const COLOR_BRIGHT := Color(0.85, 0.8, 0.35, 1.0)
+const COLOR_BORDER := Color(0.12, 0.25, 0.11, 1.0)
+const COLOR_TEXT := Color(1, 1, 1, 1)
+const COLOR_COST_OK := Color(1, 0.95, 0.6, 1)
+const COLOR_COST_LOW := Color(1, 0.45, 0.35, 1)
+const COLOR_COOLDOWN := Color(0.06, 0.1, 0.06, 0.8)
+
+const FONT_SIZE_NAME := 14
+const FONT_SIZE_COST := 13
+
+var seed_id: StringName = &""
+var data: PlantData
+var is_selected: bool = false
+
+var _cooldown_left: float = 0.0
+
+func setup(p_seed_id: StringName) -> void:
+	seed_id = p_seed_id
+	data = PlantLibrary.get_data(seed_id)
+	if data:
+		tooltip_text = "%s — %d☀ · recarga %.1fs" % [data.display_name, data.cost, data.cooldown]
+
+func _ready() -> void:
+	custom_minimum_size = Vector2(132, 84)
+	mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	pressed.connect(_on_pressed)
+	_refresh_visual()
+
+## Inicia el cooldown de esta ranura.
+func start_cooldown() -> void:
+	_cooldown_left = data.cooldown if data else 0.0
+	_refresh_visual()
+
+func _process(delta: float) -> void:
+	if _cooldown_left > 0.0:
+		var prev := _cooldown_left
+		_cooldown_left = maxf(0.0, _cooldown_left - delta)
+		if int(prev * 10.0) != int(_cooldown_left * 10.0) or _cooldown_left <= 0.0:
+			queue_redraw()
+		# Al terminar el cooldown se rehabilita (puede que ya haya sol).
+		if _cooldown_left <= 0.0:
+			_refresh_visual()
+
+func is_on_cooldown() -> bool:
+	return _cooldown_left > 0.0
+
+func can_afford() -> bool:
+	return data != null and SunBank.can_afford(data.cost)
+
+## La SeedBar marca/desmarca la selección activa.
+func set_selected(selected: bool) -> void:
+	is_selected = selected
+	queue_redraw()
+
+func _on_pressed() -> void:
+	if is_on_cooldown():
+		return
+	slot_pressed.emit(seed_id)
+
+## Botón habilitado solo cuando la semilla está lista y hay sol.
+func _refresh_visual() -> void:
+	var ready: bool = not is_on_cooldown() and can_afford()
+	if disabled != not ready:
+		disabled = not ready
+	queue_redraw()
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_THEME_CHANGED:
+		_refresh_visual()
+
+func _draw() -> void:
+	var rect := Rect2(Vector2.ZERO, size)
+
+	# Fondo según estado.
+	var bg := COLOR_BG
+	if is_selected:
+		bg = COLOR_BG_SELECTED
+	elif is_on_cooldown():
+		bg = COLOR_BG.darkened(0.3)
+	elif not can_afford():
+		bg = COLOR_BG_LOW_SUN
+
+	var box := StyleBoxFlat.new()
+	box.bg_color = bg
+	box.corner_radius_top_left = 8
+	box.corner_radius_top_right = 8
+	box.corner_radius_bottom_right = 8
+	box.corner_radius_bottom_left = 8
+	draw_style_box(box, rect)
+	draw_rect(rect.grow(-1.0), COLOR_BORDER, false, 2.0)
+
+	if data == null:
+		draw_string(ThemeDB.fallback_font, Vector2(8, 32), "—", HORIZONTAL_ALIGNMENT_LEFT, -1, FONT_SIZE_NAME, COLOR_TEXT)
+		return
+
+	# Texto: nombre arriba, costo abajo.
+	draw_string(ThemeDB.fallback_font, Vector2(8, 22), data.display_name, HORIZONTAL_ALIGNMENT_LEFT, -1, FONT_SIZE_NAME, COLOR_TEXT)
+	var cost_color := COLOR_COST_OK if can_afford() else COLOR_COST_LOW
+	draw_string(ThemeDB.fallback_font, Vector2(8, 42), "%d☀" % data.cost, HORIZONTAL_ALIGNMENT_LEFT, -1, FONT_SIZE_COST, cost_color)
+
+	# Cooldown: cortina gris + icono de recarga + segundos restantes.
+	if is_on_cooldown() and data:
+		var fraction := clampf(_cooldown_left / data.cooldown, 0.0, 1.0)
+		var cover := Rect2(0.0, size.y * (1.0 - fraction), size.x, size.y * fraction)
+		draw_rect(cover, COLOR_COOLDOWN)
+
+		var cx := size.x * 0.5
+		var cy := size.y * 0.58
+		var r := 15.0
+		# Flecha circular de recarga (arco con punta).
+		draw_arc(Vector2(cx, cy), r, -0.4, 4.6, 16, Color(1, 1, 1, 0.95), 2.2)
+		var tip := Vector2(cx, cy) + Vector2.from_angle(4.6 - 0.65) * r
+		var angle := 4.6
+		var head_x := Vector2(cx, cy) + Vector2.from_angle(angle) * (r + 6.0)
+		var perp := Vector2.from_angle(angle + TAU / 4.0)
+		draw_triangle(tip, tip - perp * 4.5, tip + perp * 4.5, Color(1, 1, 1, 0.95))
+
+		draw_string(ThemeDB.fallback_font, Vector2(4, size.y - 6.0), "%.1f s" % _cooldown_left,
+				HORIZONTAL_ALIGNMENT_CENTER, size.x - 8.0, 12, Color(1, 1, 1, 0.95))
+
+func draw_triangle(a: Vector2, b: Vector2, c: Vector2, color: Color) -> void:
+	var pts := PackedVector2Array([a, b, c])
+	draw_colored_polygon(pts, color)

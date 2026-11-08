@@ -1,0 +1,63 @@
+[gd_resource type="Resource" load_steps=10 format=3]
+
+[ext_resource path="res://data/wave_data/wave_data.gd" type="Script" id=1]
+
+[sub_resource type="Resource" id="2"]
+script = ExtResource("1")
+delay = 10.0
+zombie_count = 2
+rows = [0, 1, 2, 3, 4]
+zombie_type = "basic"
+
+[sub_resource type="Resource" id="3"]
+script = ExtResource("1")
+delay = 15.0
+zombie_count = 3
+rows = [0, 1, 2, 3, 4]
+zombie_type = "basic"
+
+[sub_resource type="Resource" id="4"]
+script = ExtResource("1")
+delay = 15.0
+zombie_count = 4
+rows = [0, 1, 2, 3, 4]
+zombie_type = "basic"
+
+[sub_resource type="Resource" id="5"]
+script = ExtResource("1")
+delay = 20.0
+zombie_count = 5
+rows = [0, 1, 2, 3, 4]
+zombie_type = "basic"
+
+[sub_resource type="Resource" id="6"]
+script = ExtResource("1")
+delay = 20.0
+zombie_count = 6
+rows = [0, 1, 2, 3, 4]
+zombie_type = "basic"
+
+[sub_resource type="Resource" id="7"]
+script = ExtResource("1")
+delay = 25.0
+zombie_count = 7
+rows = [0, 1, 2, 3, 4]
+zombie_type = "basic"
+
+[sub_resource type="Resource" id="8"]
+script = ExtResource("1")
+delay = 25.0
+zombie_count = 8
+rows = [0, 1, 2, 3, 4]
+zombie_type = "basic"
+
+[sub_resource type="Resource" id="9"]
+script = ExtResource("1")
+delay = 30.0
+zombie_count = 10
+rows = [0, 1, 2, 3, 4]
+zombie_type = "basic"
+
+[resource]
+script = ExtResource("1")
+waves = [SubResource("2"), SubResource("3"), SubResource("4"), SubResource("5"), SubResource("6"), SubResource("7"), SubResource("8"), SubResource("9")]

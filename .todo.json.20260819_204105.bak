@@ -1,0 +1,32 @@
+[
+  {
+    "content": "Explorar estructura actual del proyecto",
+    "active_form": "Explorando estructura actual del proyecto",
+    "status": "completed"
+  },
+  {
+    "content": "Diseñar Fase 3: barra de semillas y siembra",
+    "active_form": "Diseñando Fase 3: barra de semillas y siembra",
+    "status": "completed"
+  },
+  {
+    "content": "Implementar selección de planta en barra de semillas",
+    "active_form": "Implementando selección de planta en barra de semillas",
+    "status": "completed"
+  },
+  {
+    "content": "Implementar siembra en celdas con coste de sol",
+    "active_form": "Implementando siembra en celdas con coste de sol",
+    "status": "completed"
+  },
+  {
+    "content": "Implementar cooldown/reutilización de semillas",
+    "active_form": "Implementando cooldown/reutilización de semillas",
+    "status": "completed"
+  },
+  {
+    "content": "Probar integración y actualizar documentación",
+    "active_form": "Probando integración y actualizando documentación",
+    "status": "in_progress"
+  }
+]

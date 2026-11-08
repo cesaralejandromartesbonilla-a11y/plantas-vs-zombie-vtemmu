@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scenes/plants/sunflower.gd" id="1_sunflower"]
+[ext_resource type="Resource" path="res://data/plant_data/sunflower.tres" id="2_data"]
+
+[node name="Sunflower" type="Node2D"]
+z_index = 2
+script = ExtResource("1_sunflower")
+data = ExtResource("2_data")

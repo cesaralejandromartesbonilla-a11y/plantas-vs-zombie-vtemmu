@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="PlantData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/plant_data.gd" id="1_data"]
+
+[resource]
+script = ExtResource("1_data")
+id = &"repeater"
+display_name = "Repetidor"
+cost = 200
+cooldown = 7.5
+max_hp = 300
+pea_damage = 20
+fire_interval = 1.4
+shots_per_attack = 2

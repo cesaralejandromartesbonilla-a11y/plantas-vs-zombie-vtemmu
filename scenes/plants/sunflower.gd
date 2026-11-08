@@ -1,0 +1,54 @@
+class_name Sunflower
+extends Plant
+
+## Sunflower — 🌻 Girasol (Fase 2).
+##
+## Produce un sol cada `data.sun_interval` segundos; el sol emerge junto a
+## la planta y puede recogerse con clic igual que los del cielo.
+
+const SUN_SCENE := preload("res://scenes/sun/sun.tscn")
+
+var _timer: Timer
+
+func _ready() -> void:
+	_timer = Timer.new()
+	_timer.wait_time = data.sun_interval if data and data.sun_interval > 0.0 else 24.0
+	_timer.timeout.connect(_produce_sun)
+	add_child(_timer)
+	_timer.start()
+
+func _produce_sun() -> void:
+	var layer = get_tree().get_first_node_in_group("sun_layer")
+	if layer == null:
+		# Fallback: buscar vía padre (Main -> SunLayer)
+		var main = get_tree().get_first_node_in_group("main")
+		if main == null:
+			main = get_parent().get_parent()
+		if main:
+			layer = main.get_node_or_null("SunLayer")
+	if layer == null:
+		return
+	var sun: Node2D = SUN_SCENE.instantiate()
+	# Añadir ANTES de pop_at: los tweens necesitan el nodo dentro del árbol.
+	layer.add_child(sun)
+	# El sol sale por un lado de la cabeza del girasol.
+	sun.pop_at(global_position + Vector2(30, -70))
+
+## Placeholder visual: tallo verde + cabeza con pétalos amarillos.
+func _draw() -> void:
+	var stem_green := Color(0.2, 0.65, 0.25)
+	var petal_yellow := Color(1.0, 0.85, 0.2)
+	var center_brown := Color(0.5, 0.32, 0.12)
+
+	# Tallo (desde el suelo de la celda hasta la cabeza).
+	draw_rect(Rect2(-3.0, -46.0, 6.0, 46.0), stem_green)
+
+	# Pétalos: 10 círculos alrededor del centro.
+	var head := Vector2(0, -46)
+	for i in 10:
+		var angle := TAU * i / 10.0
+		var dir := Vector2.from_angle(angle)
+		draw_circle(head + dir * 18.0, 8.0, petal_yellow)
+
+	# Centro.
+	draw_circle(head, 14.0, center_brown)

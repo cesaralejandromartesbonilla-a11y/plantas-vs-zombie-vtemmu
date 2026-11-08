@@ -1,0 +1,11 @@
+# Todo
+
+- 🔄 Fase 1: Arreglar bug en cell.gd (setup antes de add_child) y revisar integración
+- ⬜ Fase 1: Validar proyecto con Godot headless (errores de parseo/script)
+- ⬜ Fase 2: Crear SunBank (autoload de economía, empieza en 50)
+- ⬜ Fase 2: Crear escena Sun (cae del cielo, recogible con clic, vuela al HUD)
+- ⬜ Fase 2: Crear lluvia de sol del cielo (spawner ~10s)
+- ⬜ Fase 2: Crear HUD con contador de sol (hud.tscn + icono)
+- ⬜ Fase 2: Crear Girasol (planta base + PlantData resource) plantado de prueba
+- ⬜ Fase 2: Integrar todo en Main y project.godot
+- ⬜ Actualizar todo.md, .todo.json y hoja de ruta

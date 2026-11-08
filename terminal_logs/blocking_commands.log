@@ -1,0 +1,3274 @@
+--- Executing blocking command at Thu Aug 20 15:42:29 2026 ---
+> call "C:\Users\cesar\.eigent\user_44515\spaces\space_8e5e3603b21a406c9ac3a99c44ea3db6\projects\1787092767435-2373\runs\1787262132532-7025\single_agent\.venv\Scripts\activate.bat" && where godot || where godot4 || dir "C:\Program Files\Godot*" /s /b || dir "C:\Godot*" /s /b
+
+
+--- Executing blocking command at Thu Aug 20 15:42:29 2026 ---
+> call "C:\Users\cesar\.eigent\user_44515\spaces\space_8e5e3603b21a406c9ac3a99c44ea3db6\projects\1787092767435-2373\runs\1787262132532-7025\single_agent\.venv\Scripts\activate.bat" && where godot || where godot4 || dir "C:\Program Files\Godot*" /s /b || dir "C:\Godot*" /s /b
+
+
+--- Executing blocking command at Thu Aug 20 15:42:55 2026 ---
+> call "C:\Users\cesar\.eigent\user_44515\spaces\space_8e5e3603b21a406c9ac3a99c44ea3db6\projects\1787092767435-2373\runs\1787262132532-7025\single_agent\.venv\Scripts\activate.bat" && python -c "
+import glob, os
+
+files = [
+    'autoload/event_bus.gd',
+    'scenes/zombies/zombie.gd',
+    'scenes/board/board.gd',
+    'scenes/board/cell.gd',
+    'scenes/projectiles/pea.gd',
+    'ui/seed_bar.gd',
+    'ui/seed_slot.gd',
+    'scenes/sun/sun.gd'
+]
+
+for f in files:
+    print('=== ' + f + ' ===')
+    if os.path.exists(f):
+        with open(f, 'r', encoding='utf-8') as file:
+            print(file.read())
+    else:
+        print('FILE NOT FOUND')
+"
+--- Output ---
+
+
+
+--- Executing blocking command at Thu Aug 20 15:42:58 2026 ---
+> call "C:\Users\cesar\.eigent\user_44515\spaces\space_8e5e3603b21a406c9ac3a99c44ea3db6\projects\1787092767435-2373\runs\1787262132532-7025\single_agent\.venv\Scripts\activate.bat" && python -c "import glob; print(glob.glob('**/*.gd', recursive=True))"
+--- Output ---
+['autoload\\event_bus.gd', 'autoload\\game_manager.gd', 'autoload\\plant_library.gd', 'autoload\\sun_bank.gd', 'data\\plant_data.gd', 'scenes\\board\\board.gd', 'scenes\\board\\cell.gd', 'scenes\\main\\main.gd', 'scenes\\plants\\peashooter.gd', 'scenes\\plants\\plant.gd', 'scenes\\plants\\sunflower.gd', 'scenes\\plants\\wallnut.gd', 'scenes\\projectiles\\pea.gd', 'scenes\\sun\\sun.gd', 'scenes\\sun\\sun_spawner.gd', 'scenes\\zombies\\zombie.gd', 'ui\\hud.gd', 'ui\\seed_bar.gd', 'ui\\seed_slot.gd', 'ui\\sun_icon.gd']
+
+
+
+--- Executing blocking command at Thu Aug 20 15:43:01 2026 ---
+> call "C:\Users\cesar\.eigent\user_44515\spaces\space_8e5e3603b21a406c9ac3a99c44ea3db6\projects\1787092767435-2373\runs\1787262132532-7025\single_agent\.venv\Scripts\activate.bat" && python -c "
+files = ['autoload/event_bus.gd', 'scenes/zombies/zombie.gd', 'scenes/board/board.gd', 'scenes/board/cell.gd', 'scenes/projectiles/pea.gd', 'ui/seed_bar.gd', 'ui/seed_slot.gd', 'scenes/sun/sun.gd']
+for f in files:
+    print('=== ' + f + ' ===')
+    with open(f, 'r', encoding='utf-8') as fp:
+        lines = fp.readlines()
+        for i, l in enumerate(lines, 1):
+            print(f'{i:3d}: {l}', end='')
+    print()
+"
+--- Output ---
+
+
+
+--- Writing content to file at Thu Aug 20 15:43:04 2026 ---
+> C:\Users\cesar\Desktop\games\demos - copia\GodotProjects\01_Prototypes\plantas-vs-zombie-vtemmu\inspect_code.py
+
+-------- 
+import glob
+import os
+
+files = [
+    'autoload/event_bus.gd',
+    'scenes/zombies/zombie.gd',
+    'scenes/board/board.gd',
+    'scenes/board/cell.gd',
+    'scenes/projectiles/pea.gd',
+    'ui/seed_bar.gd',
+    'ui/seed_slot.gd',
+    'scenes/sun/sun.gd'
+]
+
+for f in files:
+    print(f"=== {f} ===")
+    if os.path.exists(f):
+        with open(f, 'r', encoding='utf-8') as fp:
+            for i, line in enumerate(fp, 1):
+                print(f"{i:3d}: {line}", end='')
+    else:
+        print("File not found")
+    print("\n" + "="*40 + "\n")
+
+--------
+
+--- Executing blocking command at Thu Aug 20 15:43:06 2026 ---
+> call "C:\Users\cesar\.eigent\user_44515\spaces\space_8e5e3603b21a406c9ac3a99c44ea3db6\projects\1787092767435-2373\runs\1787262132532-7025\single_agent\.venv\Scripts\activate.bat" && python inspect_code.py
+--- Output ---
+=== autoload/event_bus.gd ===
+  1: extends Node
+  2: 
+  3: ## EventBus — Señales globales del juego.
+  4: ##
+  5: ## Todos los sistemas se comunican a través de señales aquí definidas para
+  6: ## mantenerse desacoplados entre sí (regla de diseño del proyecto, ver docs/hoja_de_ruta_mvp.md).
+  7: 
+  8: # ── Economía ────────────────────────────────────────────────────────────────
+  9: signal sun_changed(total: int)
+ 10: signal sun_spent(amount: int)
+ 11: signal sun_collected(amount: int)
+ 12: signal sun_dropped(sun: Node2D)
+ 13: 
+ 14: # ── Tablero / Siembra ───────────────────────────────────────────────────────
+ 15: signal cell_clicked(col: int, row: int)
+ 16: signal seed_selected(seed_id: StringName)
+ 17: signal plant_planted(plant: Node2D, col: int, row: int)
+ 18: 
+ 19: # ── Combate ─────────────────────────────────────────────────────────────────
+ 20: signal zombie_spawned(zombie: Node2D, row: int)
+ 21: signal zombie_died(zombie: Node2D)
+ 22: signal zombie_reached_house(zombie: Node2D)
+ 23: signal plant_damaged(plant: Node2D, amount: int)
+ 24: signal plant_destroyed(plant: Node2D)
+ 25: signal zombie_damaged(zombie: Node2D, amount: int)
+ 26: 
+ 27: # ── Partida ─────────────────────────────────────────────────────────────────
+ 28: signal wave_started(wave_number: int)
+ 29: signal wave_cleared(wave_number: int)
+ 30: signal game_won()
+ 31: signal game_lost()
+ 32: signal game_paused(paused: bool)
+ 33: 
+ 34: ## Reenvía cualquier señal con un prefijo, útil para debug:
+ 35: ##   EventBus.debug_forward("wave_started", wave_number)
+ 36: func debug_forward(signal_name: String, args: Array = []) -> void:
+ 37: 	emit_signal.callv(signal_name, args)
+
+========================================
+
+=== scenes/zombies/zombie.gd ===
+  1: class_name Zombie
+  2: extends CharacterBody2D
+  3: 
+  4: ## Zombie — 🧟 Zombie básico (Fase 5).
+  5: ##
+  6: ## Camina por su carril de derecha a izquierda. Si encuentra una planta en
+  7: ## su celda la muerde (100 daño / 0.5 s) hasta destruirla y luego sigue.
+  8: ## Si llega al borde izquierdo (la casa), emite zombie_reached_house.
+  9: ##
+ 10: ## Números configurados por export (balance inicial, sección 5 de la hoja).
+ 11: 
+ 12: const WALK_SPEED := 7.0           # píxeles/segundo (lento, "shambling")
+ 13: const HOUSE_X := 68.0             # borde izquierdo = la casa
+ 14: const BITE_DAMAGE := 100
+ 15: const BITE_INTERVAL := 0.5        # segundos entre mordidas
+ 16: const BITE_RANGE := 50.0          # píxeles a la izquierda donde muerde
+ 17: 
+ 18: var hp: int = 200
+ 19: var row: int = 0
+ 20: 
+ 21: var _eating: bool = false
+ 22: var _bite_timer: float = 0.0
+ 23: var _target: Plant = null
+ 24: var _reached_house: bool = false
+ 25: 
+ 26: func _ready() -> void:
+ 27: 	EventBus.zombie_spawned.emit(self, row)
+ 28: 
+ 29: ## Registra la fila en la que camina (la pone Main al instanciarlo).
+ 30: func setup(p_row: int) -> void:
+ 31: 	row = p_row
+ 32: 
+ 33: func take_damage(amount: int) -> void:
+ 34: 	if hp <= 0:
+ 35: 		return
+ 36: 	hp = maxi(0, hp - amount)
+ 37: 	EventBus.zombie_damaged.emit(self, amount)
+ 38: 	if hp == 0:
+ 39: 		_die()
+ 40: 
+ 41: func _die() -> void:
+ 42: 	EventBus.zombie_died.emit(self)
+ 43: 	queue_free()
+ 44: 
+ 45: func _physics_process(delta: float) -> void:
+ 46: 	if _reached_house or hp <= 0:
+ 47: 		return
+ 48: 
+ 49: 	# Busca comida solo si no está comiendo.
+ 50: 	if not _eating:
+ 51: 		_target = _find_plant_ahead()
+ 52: 		if _target != null:
+ 53: 			_eating = true
+ 54: 			_bite_timer = BITE_INTERVAL
+ 55: 
+ 56: 	if _eating:
+ 57: 		# La planta puede haber muerto mientras comía.
+ 58: 		if _target == null or not is_instance_valid(_target) or _target.hp <= 0:
+ 59: 			_eating = false
+ 60: 			_target = null
+ 61: 		else:
+ 62: 			_position_beside_plant()
+ 63: 			_bite_timer -= delta
+ 64: 			if _bite_timer <= 0.0:
+ 65: 				_bite_timer = BITE_INTERVAL
+ 66: 				_target.take_damage(BITE_DAMAGE)
+ 67: 	else:
+ 68: 		# Camina hacia la casa.
+ 69: 		global_position.x -= WALK_SPEED
+ 70: 		if global_position.x <= HOUSE_X:
+ 71: 			_reached_house = true
+ 72: 			EventBus.zombie_reached_house.emit(self)
+ 73: 			queue_free()
+ 74: 
+ 75: ## El zombie se pega a la planta que está comiendo (evita solaparse).
+ 76: func _position_beside_plant() -> void:
+ 77: 	var offset := 30.0
+ 78: 	var desired := _target.global_position.x + offset
+ 79: 	if global_position.x > desired:
+ 80: 		global_position.x = move_toward(global_position.x, desired, WALK_SPEED * 2.5)
+ 81: 
+ 82: ## Planta más cercana a la izquierda en este carril (dentro del alcance).
+ 83: func _find_plant_ahead() -> Plant:
+ 84: 	for plant in get_tree().get_nodes_in_group("plants"):
+ 85: 		if not is_instance_valid(plant):
+ 86: 			continue
+ 87: 		if not plant is Plant:
+ 88: 			continue
+ 89: 		if plant.row != row:
+ 90: 			continue
+ 91: 		var px := plant.global_position.x
+ 92: 		if px >= global_position.x:  # la planta debe estar enfrente (izq.)
+ 93: 			continue
+ 94: 		if global_position.x - px > BITE_RANGE:
+ 95: 			continue
+ 96: 		return plant as Plant
+ 97: 	return null
+ 98: 
+ 99: ## Placeholder visual: zombie gris/verde mirando a la izquierda.
+100: func _draw() -> void:
+101: 	var skin := Color(0.35, 0.5, 0.3)
+102: 	var dark := Color(0.22, 0.32, 0.2)
+103: 
+104: 	# Cabeza.
+105: 	draw_circle(Vector2(0, -10), 14.0, skin)
+106: 
+107: 	# Cuerpo.
+108: 	draw_rect(Rect2(-10, -2, 20, 30), skin)
+109: 
+110: 	# Brazo estirado hacia la izquierda (zombie hambriento).
+111: 	draw_rect(Rect2(-26, 2, 18, 7), skin)
+112: 
+113: 	# Ojos (mirando a la izquierda).
+114: 	draw_circle(Vector2(-5, -13), 3.2, Color(1, 0.7, 0.3))
+115: 	draw_circle(Vector2(4, -13), 3.2, Color(1, 0.7, 0.3))
+116: 	draw_circle(Vector2(-5, -13), 1.5, Color.BLACK)
+117: 	draw_circle(Vector2(4, -13), 1.5, Color.BLACK)
+118: 
+119: 	# Sombrero pequeño de zombie.
+120: 	draw_rect(Rect2(-8, -26, 16, 5), dark)
+========================================
+
+=== scenes/board/board.gd ===
+  1: extends Node2D
+  2: 
+  3: ## Board — Grilla de juego 9 columnas × 5 filas (Fase 1).
+  4: ##
+  5: ## Genera las celdas (instancias de cell.tscn), las posiciona en el mundo y
+  6: ## mantiene el arreglo `cells[5][9]` que en fases posteriores guardará la
+  7: ## referencia a la planta ocupante o null.
+  8: ##
+  9: ## Coordenadas de celda:
+ 10: ##   - col 0..8  (de izquierda a derecha)
+ 11: ##   - row 0..4  (de arriba a abajo)
+ 12: ##
+ 13: ## Tamaños (constantes del MVP):
+ 14: ##   - Celda: 80 x 100 px
+ 15: ##   - Board completo: 720 x 500 px
+ 16: ## El origen local (0,0) del Board coincide con su centro; el lado superior
+ 17: ## izquierdo está en -BOARD_SIZE/2.
+ 18: 
+ 19: signal cell_hovered(col: int, row: int)
+ 20: 
+ 21: const CELL_SIZE := Vector2(80, 100)
+ 22: const COLS := 9
+ 23: const ROWS := 5
+ 24: const BOARD_SIZE := Vector2(CELL_SIZE.x * COLS, CELL_SIZE.y * ROWS)
+ 25: 
+ 26: const CELL_SCENE := preload("res://scenes/board/cell.tscn")
+ 27: 
+ 28: const COLOR_LAWN_A := Color(0.35, 0.75, 0.3, 1.0)
+ 29: const COLOR_LAWN_B := Color(0.42, 0.78, 0.36, 1.0)
+ 30: const COLOR_EDGE := Color(0.20, 0.45, 0.18, 1.0)
+ 31: 
+ 32: ## cells[row][col] -> Cell (referencia al nodo).
+ 33: var cells: Array = []
+ 34: 
+ 35: ## Semilla seleccionada (que está a la espera de click en una celda),
+ 36: ## o &"" si no hay ninguna. Una planta por celda la valida `can_plant`.
+ 37: var pending_seed: StringName = &""
+ 38: 
+ 39: func _ready() -> void:
+ 40: 	_build_lawn_background()
+ 41: 	_build_cells()
+ 42: 	EventBus.cell_clicked.connect(_on_cell_clicked)
+ 43: 	EventBus.seed_selected.connect(_on_seed_selected)
+ 44: 	EventBus.plant_destroyed.connect(_on_plant_destroyed)
+ 45: 	# Si cambia el saldo (p. ej. recoges sol), los previews se recalculan.
+ 46: 	EventBus.sun_changed.connect(func(_total: int) -> void: _refresh_previews())
+ 47: 
+ 48: ## Devuelve el centro LOCAL de la celda (col, row) dentro del Board.
+ 49: func cell_center(col: int, row: int) -> Vector2:
+ 50: 	var top_left := -BOARD_SIZE / 2.0
+ 51: 	return top_left + Vector2(CELL_SIZE.x * (col + 0.5), CELL_SIZE.y * (row + 0.5))
+ 52: 
+ 53: ## Devuelve el centro GLOBAL (mundo) de la celda (col, row).
+ 54: ## Útil para instanciar plantas/zombies dentro de otras escenas.
+ 55: func world_center(col: int, row: int) -> Vector2:
+ 56: 	return to_global(cell_center(col, row))
+ 57: 
+ 58: ## ¿La coordenada (col, row) es válida dentro del board?
+ 59: func is_valid(col: int, row: int) -> bool:
+ 60: 	return col >= 0 and col < COLS and row >= 0 and row < ROWS
+ 61: 
+ 62: ## La celda en (col, row) — null si fuera del tablero.
+ 63: func get_cell(col: int, row: int) -> Cell:
+ 64: 	if not is_valid(col, row):
+ 65: 		return null
+ 66: 	return cells[row][col]
+ 67: 
+ 68: ## Convierte una posición del mundo a coordenadas de celda (col, row),
+ 69: ## o (-1, -1) si está fuera del tablero. Útil para previews en fases posteriores.
+ 70: func world_to_cell(world_pos: Vector2) -> Vector2i:
+ 71: 	var local := to_local(world_pos) + BOARD_SIZE / 2.0
+ 72: 	var col := int(local.x / CELL_SIZE.x)
+ 73: 	var row := int(local.y / CELL_SIZE.y)
+ 74: 	if is_valid(col, row):
+ 75: 		return Vector2i(col, row)
+ 76: 	return Vector2i(-1, -1)
+ 77: 
+ 78: ## Planta que ocupa la celda (col, row), o null si está vacía.
+ 79: func plant_at(col: int, row: int) -> Plant:
+ 80: 	var cell: Cell = get_cell(col, row)
+ 81: 	if cell == null:
+ 82: 		return null
+ 83: 	return cell.plant
+ 84: 
+ 85: ## ¿Se puede plantar la semilla `seed_id` en esta celda?
+ 86: ## (Existe la semilla, la celda es válida y está vacía, y hay sol.)
+ 87: func can_plant(seed_id: StringName, col: int, row: int) -> bool:
+ 88: 	if seed_id == &"" or not PlantLibrary.has_seed(seed_id):
+ 89: 		return false
+ 90: 	if not is_valid(col, row):
+ 91: 		return false
+ 92: 	if plant_at(col, row) != null:
+ 93: 		return false
+ 94: 	return SunBank.can_afford(PlantLibrary.get_data(seed_id).cost)
+ 95: 
+ 96: ## Fase 3: instancia la planta de la semilla en la celda (col, row) y la
+ 97: ## registra. Devuelve la planta creada o null si no se pudo.
+ 98: func plant(seed_id: StringName, col: int, row: int) -> Plant:
+ 99: 	if not can_plant(seed_id, col, row):
+100: 		return null
+101: 	var scene: PackedScene = PlantLibrary.get_scene(seed_id)
+102: 	if scene == null:
+103: 		return null
+104: 	var plant: Plant = scene.instantiate()
+105: 	plant.setup(col, row)
+106: 	plant.global_position = world_center(col, row)
+107: 	# La añade al árbol ANTES de set_plant (los @onready de la planta corren).
+108: 	get_tree().get_first_node_in_group("entities").add_child(plant)
+109: 	_cell(col, row).set_plant(plant)
+110: 	EventBus.plant_planted.emit(plant, col, row)
+111: 	return plant
+112: 
+113: ## Registra la planta en su celda (público para que Main la inserte).
+114: func register_plant(plant: Plant) -> void:
+115: 	var cell: Cell = get_cell(plant.col, plant.row)
+116: 	if cell:
+117: 		cell.set_plant(plant)
+118: 
+119: func _cell(col: int, row: int) -> Cell:
+120: 	return cells[row][col] if is_valid(col, row) else null
+121: 
+122: func _on_seed_selected(seed_id: StringName) -> void:
+123: 	pending_seed = seed_id
+124: 	_refresh_previews()
+125: 
+126: ## Fase 3: al destruirse una planta se libera su celda.
+127: func _on_plant_destroyed(plant: Node) -> void:
+128: 	if plant is Plant:
+129: 		var cell: Cell = _cell(plant.col, plant.row)
+130: 		if cell:
+131: 			cell.clear_plant()
+132: 
+133: ## Pinta preview verde/rojo en TODAS las celdas según la semilla pendiente
+134: ## (verde = se puede plantar, rojo = no se puede). Sin semilla, limpia.
+135: func _refresh_previews() -> void:
+136: 	for row in ROWS:
+137: 		for col in COLS:
+138: 			var cell: Cell = _cell(col, row)
+139: 			if pending_seed == &"":
+140: 				cell.set_preview(Cell.PREVIEW_NONE)
+141: 			elif can_plant(pending_seed, col, row):
+142: 				cell.set_preview(Cell.PREVIEW_OK)
+143: 			else:
+144: 				cell.set_preview(Cell.PREVIEW_BAD)
+145: 
+146: func _build_lawn_background() -> void:
+147: 	var top_left := -BOARD_SIZE / 2.0
+148: 
+149: 	# Relleno principal.
+150: 	var lawn := ColorRect.new()
+151: 	lawn.size = BOARD_SIZE
+152: 	lawn.position = top_left
+153: 	lawn.color = COLOR_LAWN_A
+154: 	lawn.mouse_filter = Control.MOUSE_FILTER_IGNORE
+155: 	add_child(lawn)
+156: 
+157: 	# Filas alternas más claras (efecto césped rayado).
+158: 	for row in ROWS:
+159: 		if row % 2 == 0:
+160: 			continue
+161: 		var stripe := ColorRect.new()
+162: 		stripe.size = Vector2(BOARD_SIZE.x, CELL_SIZE.y)
+163: 		stripe.position = top_left + Vector2(0.0, row * CELL_SIZE.y)
+164: 		stripe.color = COLOR_LAWN_B
+165: 		stripe.mouse_filter = Control.MOUSE_FILTER_IGNORE
+166: 		add_child(stripe)
+167: 
+168: 	# Marco/borde (se dibuja detrás del césped).
+169: 	var edge := 4.0
+170: 	var frame := ColorRect.new()
+171: 	frame.size = BOARD_SIZE + Vector2(edge * 2.0, edge * 2.0)
+172: 	frame.position = top_left - Vector2(edge, edge)
+173: 	frame.color = COLOR_EDGE
+174: 	frame.mouse_filter = Control.MOUSE_FILTER_IGNORE
+175: 	add_child(frame)
+176: 	frame.move_to_back()
+177: 
+178: func _build_cells() -> void:
+179: 	for row in ROWS:
+180: 		var row_arr: Array = []
+181: 		for col in COLS:
+182: 			var cell: Cell = CELL_SCENE.instantiate()
+183: 			cell.setup(col, row)
+184: 			cell.position = cell_center(col, row)
+185: 			add_child(cell)
+186: 			row_arr.append(cell)
+187: 		cells.append(row_arr)
+188: 
+189: func _on_cell_clicked(col: int, row: int) -> void:
+190: 	print("[Board] Celda clicada -> col=%d, fila=%d" % [col, row])
+191: 
+192: 	# Fase 3: si hay una semilla seleccionada, intenta plantarla.
+193: 	if pending_seed != &"":
+194: 		var planted: Plant = plant(pending_seed, col, row)
+195: 		if planted != null:
+196: 			print("[Board] Plantada '%s' en (%d,%d)" % [pending_seed, col, row])
+197: 			# El Main (que escucha plant_planted) paga el sol y reinicia el
+198: 			# cooldown de la ranura; aquí solo limpiamos el preview.
+199: 			pending_seed = &""
+200: 			_refresh_previews()
+201: 		else:
+202: 			print("[Board] No se pudo plantar '%s' en (%d,%d)" % [pending_seed, col, row])
+========================================
+
+=== scenes/board/cell.gd ===
+  1: class_name Cell
+  2: extends Area2D
+  3: 
+  4: ## Cell — Una celda de la grilla del Board (Fase 1+3).
+  5: ##
+  6: ## Detecta hover y clic, y emite por EventBus la coordenada (col, row).
+  7: ## En la Fase 3 muestra el preview de siembra (verde = válida, rojo =
+  8: ## inválida) y guarda la referencia a la planta que la ocupa.
+  9: ##
+ 10: ## OJO: `setup()` solo guarda valores (se llama ANTES de add_child, cuando
+ 11: ## los @onready aún no existen). El pintado se aplica en _ready().
+ 12: 
+ 13: ## Modos de preview de siembra.
+ 14: enum Preview { NONE, OK, BAD }
+ 15: 
+ 16: @export var col: int = 0
+ 17: @export var row: int = 0
+ 18: 
+ 19: ## Planta que ocupa la celda (null = libre).
+ 20: var plant: Plant = null
+ 21: var _preview: Preview = Preview.NONE
+ 22: 
+ 23: @onready var _highlight: ColorRect = $Highlight
+ 24: @onready var _base: ColorRect = $Base
+ 25: 
+ 26: const COLOR_A := Color(0.42, 0.78, 0.36, 1.0)  # verde claro
+ 27: const COLOR_B := Color(0.36, 0.70, 0.32, 1.0)  # verde oscuro (alterno por fila)
+ 28: const COLOR_HOVER := Color(1.0, 1.0, 0.6, 0.35) # amarillo translúcido
+ 29: const COLOR_PREVIEW_OK := Color(0.35, 1.0, 0.45, 0.45)
+ 30: const COLOR_PREVIEW_BAD := Color(1.0, 0.3, 0.3, 0.45)
+ 31: 
+ 32: ## Captura los datos de la celda. NO tocar nodos aquí (aún no está en el árbol).
+ 33: func setup(p_col: int, p_row: int) -> void:
+ 34: 	col = p_col
+ 35: 	row = p_row
+ 36: 
+ 37: func _ready() -> void:
+ 38: 	_base.color = COLOR_A if row % 2 == 0 else COLOR_B
+ 39: 	input_event.connect(_on_input_event)
+ 40: 	mouse_entered.connect(_on_mouse_entered)
+ 41: 	mouse_exited.connect(_on_mouse_exited)
+ 42: 
+ 43: func _on_mouse_entered() -> void:
+ 44: 	# El hover no debe pisar un preview de siembra activo.
+ 45: 	if _preview == Preview.NONE:
+ 46: 		_highlight.color = COLOR_HOVER
+ 47: 
+ 48: func _on_mouse_exited() -> void:
+ 49: 	if _preview == Preview.NONE:
+ 50: 		_highlight.color = Color.TRANSPARENT
+ 51: 
+ 52: ## ── Ocupación (Fase 3) ────────────────────────────────────────────────────
+ 53: 
+ 54: func is_occupied() -> bool:
+ 55: 	return plant != null and is_instance_valid(plant)
+ 56: 
+ 57: func set_plant(p_plant: Plant) -> void:
+ 58: 	plant = p_plant
+ 59: 
+ 60: func clear_plant() -> void:
+ 61: 	plant = null
+ 62: 
+ 63: ## ── Preview de siembra (Fase 3) ───────────────────────────────────────────
+ 64: 
+ 65: func set_preview(mode: Preview) -> void:
+ 66: 	_preview = mode
+ 67: 	_update_preview_color()
+ 68: 
+ 69: func _update_preview_color() -> void:
+ 70: 	match _preview:
+ 71: 		Preview.OK:
+ 72: 			_highlight.color = COLOR_PREVIEW_OK
+ 73: 		Preview.BAD:
+ 74: 			_highlight.color = COLOR_PREVIEW_BAD
+ 75: 		_:
+ 76: 			_highlight.color = Color.TRANSPARENT
+ 77: 
+ 78: func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+ 79: 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+ 80: 		EventBus.cell_clicked.emit(col, row)
+========================================
+
+=== scenes/projectiles/pea.gd ===
+  1: class_name Pea
+  2: extends Area2D
+  3: 
+  4: ## Pea — 🟢 Guisante (Fase 4).
+  5: ##
+  6: ## Viaja por su fila (misma `row` en la que se disparó) hacia la derecha.
+  7: ## Golpea al primer zombie de su carril que encuentre (detección por fila
+  8: ## + rango en X, según la decisión de la sección 6 de la hoja de ruta).
+  9: ##
+ 10: ## Si atraviesa todo el tablero sin impactar, se elimina (se marca para
+ 11: ## evitar doble impacto).
+ 12: 
+ 13: const SPEED := 420.0        # píxeles/segundo hacia la derecha
+ 14: const KILL_X := 1350.0      # fuera del tablero (1280+)
+ 15: 
+ 16: var row: int = 0
+ 17: var damage: int = 20
+ 18: var _dead: bool = false
+ 19: 
+ 20: func setup(p_row: int, p_damage: int) -> void:
+ 21: 	row = p_row
+ 22: 	damage = p_damage
+ 23: 
+ 24: func _process(delta: float) -> void:
+ 25: 	if _dead:
+ 26: 		return
+ 27: 	global_position.x += SPEED * delta
+ 28: 	_try_hit()
+ 29: 	if not _dead and global_position.x > KILL_X:
+ 30: 		queue_free()
+ 31: 
+ 32: ## Busca al zombie más cercano (menor X) en este carril y lo golpea.
+ 33: func _try_hit() -> void:
+ 34: 	var best: Node2D = null
+ 35: 	var best_x := INF
+ 36: 	for zombie in get_tree().get_nodes_in_group("zombies"):
+ 37: 		if not is_instance_valid(zombie):
+ 38: 			continue
+ 39: 		if zombie.row != row:
+ 40: 			continue
+ 41: 		var zx := zombie.global_position.x
+ 42: 		if zx <= global_position.x:
+ 43: 			continue
+ 44: 		# El guisante impacta cuando su centro alcanza el cuerpo del zombie.
+ 45: 		if zx - global_position.x > 26.0:
+ 46: 			continue
+ 47: 		if zx < best_x:
+ 48: 			best_x = zx
+ 49: 			best = zombie
+ 50: 	if best != null:
+ 51: 		_dead = true
+ 52: 		best.take_damage(damage)
+ 53: 		queue_free()
+ 54: 
+ 55: ## Placeholder visual: guisante verde.
+ 56: func _draw() -> void:
+ 57: 	draw_circle(Vector2.ZERO, 7.0, Color(0.35, 0.8, 0.3))
+ 58: 	draw_circle(Vector2(2.0, -2.0), 2.4, Color(0.6, 0.95, 0.5))
+========================================
+
+=== ui/seed_bar.gd ===
+  1: extends HBoxContainer
+  2: 
+  3: ## SeedBar — Barra de semillas del HUD (Fase 3).
+  4: ##
+  5: ## Crea una ranura (SeedSlot) por semilla registrada en PlantLibrary y
+  6: ## gestiona la selección: solo una activa a la vez, con deselección al
+  7: ## volver a pulsar la misma ranura o al pulsar clic derecho.
+  8: ##
+  9: ## Flujo de siembra: la selección se publica por EventBus.seed_selected;
+ 10: ## el Main escucha y planta al hacer clic en una celda válida. Los slots
+ 11: ## se refrescan al cambiar el sol (para el estado "sin sol").
+ 12: 
+ 13: signal seed_deselected
+ 14: 
+ 15: ## Orden de presentación de las semillas en la barra.
+ 16: const SEED_ORDER: Array[StringName] = [&"sunflower", &"peashooter", &"wallnut"]
+ 17: 
+ 18: ## seed_id -> SeedSlot
+ 19: var slots: Dictionary = {}
+ 20: 
+ 21: var _current_seed: StringName = &""
+ 22: var _prev_sun: int = -9999
+ 23: 
+ 24: func _ready() -> void:
+ 25: 	_build_slots()
+ 26: 	EventBus.sun_changed.connect(_on_sun_changed)
+ 27: 	EventBus.cell_clicked.connect(_on_cell_clicked)
+ 28: 
+ 29: func _build_slots() -> void:
+ 30: 	var slot_scene := preload("res://ui/seed_slot.tscn")
+ 31: 	for seed_id: StringName in SEED_ORDER:
+ 32: 		if not PlantLibrary.has_seed(seed_id):
+ 33: 			continue
+ 34: 		var slot: SeedSlot = slot_scene.instantiate()
+ 35: 		slot.setup(seed_id)
+ 36: 		slot.slot_pressed.connect(_on_slot_pressed)
+ 37: 		add_child(slot)
+ 38: 		slots[seed_id] = slot
+ 39: 
+ 40: ## Semilla actualmente seleccionada, o &"" si ninguna.
+ 41: func current_seed() -> StringName:
+ 42: 	return _current_seed
+ 43: 
+ 44: ## Intenta seleccionar/deseleccionar una semilla.
+ 45: func select_seed(seed_id: StringName) -> void:
+ 46: 	if _current_seed == seed_id:
+ 47: 		_clear_selection()
+ 48: 		return
+ 49: 	_select(seed_id)
+ 50: 
+ 51: func _on_slot_pressed(seed_id: StringName) -> void:
+ 52: 	select_seed(seed_id)
+ 53: 
+ 54: ## Tras sembrar, se vacía la selección (una planta por clic).
+ 55: func clear_selection() -> void:
+ 56: 	_clear_selection()
+ 57: 
+ 58: ## Pone en cooldown la ranura `seed_id` (lo llama Main al plantar).
+ 59: func start_cooldown(seed_id: StringName) -> void:
+ 60: 	var slot: SeedSlot = slots.get(seed_id)
+ 61: 	if slot:
+ 62: 		slot.start_cooldown()
+ 63: 	_refresh_slots()
+ 64: 
+ 65: func _select(seed_id: StringName) -> void:
+ 66: 	for key: StringName in slots:
+ 67: 		var slot: SeedSlot = slots[key]
+ 68: 		slot.set_selected(key == seed_id)
+ 69: 	_current_seed = seed_id
+ 70: 	EventBus.seed_selected.emit(seed_id)
+ 71: 
+ 72: func _clear_selection() -> void:
+ 73: 	_current_seed = &""
+ 74: 	for key: StringName in slots:
+ 75: 		slots[key].set_selected(false)
+ 76: 	seed_deselected.emit()
+ 77: 	# El Board se entera de que ya no hay semilla pendiente (limpia previews).
+ 78: 	EventBus.seed_selected.emit(&"")
+ 79: 
+ 80: ## Si había una semilla y se clica una celda, la siembra la gestiona Main
+ 81: ## (que escucha cell_clicked). Aquí solo refrescamos estados.
+ 82: func _on_cell_clicked(_col: int, _row: int) -> void:
+ 83: 	_refresh_slots()
+ 84: 
+ 85: ## Actualiza el estado "sin sol" de cada ranura.
+ 86: func _on_sun_changed(total: int) -> void:
+ 87: 	# Evitar redibujar en cada cambio si el total no varía.
+ 88: 	if total == _prev_sun:
+ 89: 		return
+ 90: 	_prev_sun = total
+ 91: 	_refresh_slots()
+ 92: 
+ 93: func _refresh_slots() -> void:
+ 94: 	for key: StringName in slots:
+ 95: 		slots[key].refresh()
+ 96: 
+ 97: func _unhandled_input(event: InputEvent) -> void:
+ 98: 	# Clic derecho cancela la selección.
+ 99: 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
+100: 		if _current_seed != &"":
+101: 			_clear_selection()
+102: 			get_viewport().set_input_as_handled()
+========================================
+
+=== ui/seed_slot.gd ===
+  1: extends Button
+  2: 
+  3: ## SeedSlot — Ranura de semilla de la SeedBar (Fase 3).
+  4: ##
+  5: ## Muestra el nombre y el costo de la semilla, y durante el cooldown dibuja
+  6: ## una cortina gris que se vacía junto con los segundos restantes.
+  7: ## El templado de la ranura lo hace la SeedBar vía `setup()`.
+  8: ##
+  9: ## Estados visuales:
+ 10: ##   - Normal: fondo verde botánico + texto claro.
+ 11: ##   - Sin sol: fondo gris verdoso + costo en rojo (no clicable).
+ 12: ##   - Cooldown: cortina gris que baja + icono de recarga + tiempo restante.
+ 13: ##   - Seleccionada: fondo amarillo (la SeedBar la marca con set_selected()).
+ 14: 
+ 15: signal slot_pressed(seed_id: StringName)
+ 16: 
+ 17: const COLOR_BG := Color(0.22, 0.42, 0.2, 0.95)
+ 18: const COLOR_BG_LOW_SUN := Color(0.3, 0.34, 0.28, 0.95)
+ 19: const COLOR_BG_SELECTED := Color(0.85, 0.8, 0.35, 1.0)
+ 20: const COLOR_BORDER := Color(0.12, 0.25, 0.11, 1.0)
+ 21: const COLOR_TEXT := Color(1, 1, 1, 1)
+ 22: const COLOR_COST_OK := Color(1, 0.95, 0.6, 1)
+ 23: const COLOR_COST_LOW := Color(1, 0.45, 0.35, 1)
+ 24: const COLOR_COOLDOWN := Color(0.06, 0.1, 0.06, 0.8)
+ 25: 
+ 26: const FONT_SIZE_NAME := 14
+ 27: const FONT_SIZE_COST := 13
+ 28: 
+ 29: var seed_id: StringName = &""
+ 30: var data: PlantData
+ 31: var is_selected: bool = false
+ 32: 
+ 33: var _cooldown_left: float = 0.0
+ 34: 
+ 35: func setup(p_seed_id: StringName) -> void:
+ 36: 	seed_id = p_seed_id
+ 37: 	data = PlantLibrary.get_data(seed_id)
+ 38: 	if data:
+ 39: 		tooltip_text = "%s — %d☀ · recarga %.1fs" % [data.display_name, data.cost, data.cooldown]
+ 40: 
+ 41: func _ready() -> void:
+ 42: 	custom_minimum_size = Vector2(132, 84)
+ 43: 	mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+ 44: 	pressed.connect(_on_pressed)
+ 45: 	_refresh_visual()
+ 46: 
+ 47: ## Inicia el cooldown de esta ranura.
+ 48: func start_cooldown() -> void:
+ 49: 	_cooldown_left = data.cooldown if data else 0.0
+ 50: 	_refresh_visual()
+ 51: 
+ 52: func _process(delta: float) -> void:
+ 53: 	if _cooldown_left > 0.0:
+ 54: 		var prev := _cooldown_left
+ 55: 		_cooldown_left = maxf(0.0, _cooldown_left - delta)
+ 56: 		if int(prev * 10.0) != int(_cooldown_left * 10.0) or _cooldown_left <= 0.0:
+ 57: 			queue_redraw()
+ 58: 		# Al terminar el cooldown se rehabilita (puede que ya haya sol).
+ 59: 		if _cooldown_left <= 0.0:
+ 60: 			_refresh_visual()
+ 61: 
+ 62: func is_on_cooldown() -> bool:
+ 63: 	return _cooldown_left > 0.0
+ 64: 
+ 65: func can_afford() -> bool:
+ 66: 	return data != null and SunBank.can_afford(data.cost)
+ 67: 
+ 68: ## La SeedBar marca/desmarca la selección activa.
+ 69: func set_selected(selected: bool) -> void:
+ 70: 	is_selected = selected
+ 71: 	queue_redraw()
+ 72: 
+ 73: func _on_pressed() -> void:
+ 74: 	if is_on_cooldown():
+ 75: 		return
+ 76: 	slot_pressed.emit(seed_id)
+ 77: 
+ 78: ## Recalcula el estado habilitado/deshabilitado (la SeedBar lo llama
+ 79: ## cuando cambia el sol o tras sembrar).
+ 80: func refresh() -> void:
+ 81: 	_refresh_visual()
+ 82: 
+ 83: ## Botón habilitado solo cuando la semilla está lista y hay sol.
+ 84: func _refresh_visual() -> void:
+ 85: 	var ready: bool = not is_on_cooldown() and can_afford()
+ 86: 	if disabled != not ready:
+ 87: 		disabled = not ready
+ 88: 	queue_redraw()
+ 89: 
+ 90: func _notification(what: int) -> void:
+ 91: 	if what == NOTIFICATION_THEME_CHANGED:
+ 92: 		_refresh_visual()
+ 93: 
+ 94: func _draw() -> void:
+ 95: 	var rect := Rect2(Vector2.ZERO, size)
+ 96: 
+ 97: 	# Fondo según estado.
+ 98: 	var bg := COLOR_BG
+ 99: 	if is_selected:
+100: 		bg = COLOR_BG_SELECTED
+101: 	elif is_on_cooldown():
+102: 		bg = COLOR_BG.darkened(0.3)
+103: 	elif not can_afford():
+104: 		bg = COLOR_BG_LOW_SUN
+105: 
+106: 	var box := StyleBoxFlat.new()
+107: 	box.bg_color = bg
+108: 	box.corner_radius_top_left = 8
+109: 	box.corner_radius_top_right = 8
+110: 	box.corner_radius_bottom_right = 8
+111: 	box.corner_radius_bottom_left = 8
+112: 	draw_style_box(box, rect)
+113: 	draw_rect(rect.grow(-1.0), COLOR_BORDER, false, 2.0)
+114: 
+115: 	if data == null:
+116: 		draw_string(ThemeDB.fallback_font, Vector2(8, 32), "—", HORIZONTAL_ALIGNMENT_LEFT, -1, FONT_SIZE_NAME, COLOR_TEXT)
+117: 		return
+118: 
+119: 	# Texto: nombre arriba, costo abajo.
+120: 	draw_string(ThemeDB.fallback_font, Vector2(8, 22), data.display_name, HORIZONTAL_ALIGNMENT_LEFT, -1, FONT_SIZE_NAME, COLOR_TEXT)
+121: 	var cost_color := COLOR_COST_OK if can_afford() else COLOR_COST_LOW
+122: 	draw_string(ThemeDB.fallback_font, Vector2(8, 42), "%d☀" % data.cost, HORIZONTAL_ALIGNMENT_LEFT, -1, FONT_SIZE_COST, cost_color)
+123: 
+124: 	# Cooldown: cortina gris + icono de recarga + segundos restantes.
+125: 	if is_on_cooldown() and data:
+126: 		var fraction := clampf(_cooldown_left / data.cooldown, 0.0, 1.0)
+127: 		var cover := Rect2(0.0, size.y * (1.0 - fraction), size.x, size.y * fraction)
+128: 		draw_rect(cover, COLOR_COOLDOWN)
+129: 
+130: 		var cx := size.x * 0.5
+131: 		var cy := size.y * 0.58
+132: 		var r := 15.0
+133: 		# Flecha circular de recarga (arco + punta de flecha).
+134: 		draw_arc(Vector2(cx, cy), r, -0.4, 4.6, 16, Color(1, 1, 1, 0.95), 2.2)
+135: 		var angle := 4.6
+136: 		var tip := Vector2(cx, cy) + Vector2.from_angle(angle - 0.65) * r
+137: 		var perp := Vector2.from_angle(angle + TAU / 4.0)
+138: 		draw_triangle(tip, tip - perp * 4.5, tip + perp * 4.5, Color(1, 1, 1, 0.95))
+139: 
+140: 		draw_string(ThemeDB.fallback_font, Vector2(4, size.y - 6.0), "%.1f s" % _cooldown_left,
+141: 				HORIZONTAL_ALIGNMENT_CENTER, size.x - 8.0, 12, Color(1, 1, 1, 0.95))
+142: 
+143: func draw_triangle(a: Vector2, b: Vector2, c: Vector2, color: Color) -> void:
+144: 	var pts := PackedVector2Array([a, b, c])
+145: 	draw_colored_polygon(pts, color)
+========================================
+
+=== scenes/sun/sun.gd ===
+  1: class_name Sun
+  2: extends Area2D
+  3: 
+  4: ## Sun — ☀️ Sol del juego (Fase 2).
+  5: ##
+  6: ## Estados: FALLING (cae del cielo) -> GROUND (en el suelo, recogible) ->
+  7: ## COLLECTED (vuela al contador del HUD y suma a SunBank).
+  8: ## El girasol también lo usa: `pop_at()` lo hace aparecer ya en el suelo.
+  9: 
+ 10: enum State { FALLING, GROUND, COLLECTED }
+ 11: 
+ 12: const VALUE := 25
+ 13: const GROUND_LIFETIME := 8.0
+ 14: 
+ 15: const COLOR_CORE := Color(1.0, 0.95, 0.55)
+ 16: const COLOR_BODY := Color(1.0, 0.88, 0.2)
+ 17: const COLOR_RAY := Color(1.0, 0.8, 0.15)
+ 18: 
+ 19: var state: State = State.FALLING
+ 20: var value: int = VALUE
+ 21: 
+ 22: func _ready() -> void:
+ 23: 	input_event.connect(_on_input_event)
+ 24: 
+ 25: ## Cae desde `start_pos` hasta `target_pos` (lluvia del cielo).
+ 26: func fall_from(start_pos: Vector2, target_pos: Vector2, fall_time: float = 3.0) -> void:
+ 27: 	state = State.FALLING
+ 28: 	global_position = start_pos
+ 29: 	modulate.a = 1.0
+ 30: 	scale = Vector2.ONE
+ 31: 	var tween := create_tween()
+ 32: 	tween.tween_property(self, "global_position", target_pos, fall_time) \
+ 33: 		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+ 34: 	tween.tween_callback(_land)
+ 35: 
+ 36: ## Aparece ya en el suelo con un pequeño rebote (sol del girasol).
+ 37: func pop_at(pos: Vector2) -> void:
+ 38: 	state = State.GROUND
+ 39: 	global_position = pos
+ 40: 	modulate.a = 1.0
+ 41: 	scale = Vector2.ZERO
+ 42: 	var tween := create_tween()
+ 43: 	tween.tween_property(self, "scale", Vector2.ONE, 0.3) \
+ 44: 		.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+ 45: 	_start_ground_lifetime()
+ 46: 
+ 47: func _land() -> void:
+ 48: 	if state != State.FALLING:
+ 49: 		return
+ 50: 	state = State.GROUND
+ 51: 	_start_ground_lifetime()
+ 52: 
+ 53: ## Si nadie lo recoge, se desvanece y desaparece.
+ 54: func _start_ground_lifetime() -> void:
+ 55: 	await get_tree().create_timer(GROUND_LIFETIME).timeout
+ 56: 	if not is_instance_valid(self) or state != State.GROUND:
+ 57: 		return
+ 58: 	var tween := create_tween()
+ 59: 	tween.tween_property(self, "modulate:a", 0.0, 0.5)
+ 60: 	tween.tween_callback(queue_free)
+ 61: 
+ 62: func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+ 63: 	if state != State.GROUND:
+ 64: 		return
+ 65: 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+ 66: 		_collect()
+ 67: 
+ 68: func _collect() -> void:
+ 69: 	if state == State.COLLECTED:
+ 70: 		return
+ 71: 	state = State.COLLECTED
+ 72: 	# Cancela cualquier tween en curso (p. ej. el desvanecimiento final).
+ 73: 	for tween in get_tweens():
+ 74: 		tween.kill()
+ 75: 
+ 76: 	# Vuela hacia el ancla del contador de sol del HUD.
+ 77: 	var target := Vector2(118, 40)  # fallback si no hay ancla
+ 78: 	var anchor := get_tree().get_first_node_in_group("sun_anchor")
+ 79: 	if anchor:
+ 80: 		target = anchor.get_global_transform_with_canvas().origin
+ 81: 
+ 82: 	var tween := create_tween()
+ 83: 	tween.set_parallel(true)
+ 84: 	tween.tween_property(self, "global_position", target, 0.3) \
+ 85: 		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+ 86: 	tween.tween_property(self, "scale", Vector2(0.35, 0.35), 0.3)
+ 87: 	await tween.finished
+ 88: 	SunBank.add(value)
+ 89: 	queue_free()
+ 90: 
+ 91: ## Placeholder visual: núcleo + cuerpo + 8 rayos.
+ 92: func _draw() -> void:
+ 93: 	draw_circle(Vector2.ZERO, 18.0, COLOR_BODY)
+ 94: 	draw_circle(Vector2.ZERO, 10.0, COLOR_CORE)
+ 95: 	for i in 8:
+ 96: 		var dir := Vector2.from_angle(TAU * i / 8.0)
+ 97: 		draw_circle(dir * 24.0, 6.0, COLOR_RAY)
+========================================
+
+
+
+
+--- Writing content to file at Thu Aug 20 15:43:25 2026 ---
+> C:\Users\cesar\Desktop\games\demos - copia\GodotProjects\01_Prototypes\plantas-vs-zombie-vtemmu\inspect_all.py
+
+-------- 
+import glob
+
+gd_files = glob.glob('**/*.gd', recursive=True)
+for f in sorted(gd_files):
+    if f == 'inspect_code.py':
+        continue
+    print(f"=== {f} ===")
+    with open(f, 'r', encoding='utf-8') as fp:
+        lines = fp.readlines()
+        for i, line in enumerate(lines, 1):
+            print(f"{i:3d}: {line}", end='')
+    print("\n" + "="*40 + "\n")
+
+--------
+
+--- Executing blocking command at Thu Aug 20 15:43:27 2026 ---
+> call "C:\Users\cesar\.eigent\user_44515\spaces\space_8e5e3603b21a406c9ac3a99c44ea3db6\projects\1787092767435-2373\runs\1787262132532-7025\single_agent\.venv\Scripts\activate.bat" && python inspect_all.py
+--- Output ---
+=== autoload\event_bus.gd ===
+  1: extends Node
+  2: 
+  3: ## EventBus — Señales globales del juego.
+  4: ##
+  5: ## Todos los sistemas se comunican a través de señales aquí definidas para
+  6: ## mantenerse desacoplados entre sí (regla de diseño del proyecto, ver docs/hoja_de_ruta_mvp.md).
+  7: 
+  8: # ── Economía ────────────────────────────────────────────────────────────────
+  9: signal sun_changed(total: int)
+ 10: signal sun_spent(amount: int)
+ 11: signal sun_collected(amount: int)
+ 12: signal sun_dropped(sun: Node2D)
+ 13: 
+ 14: # ── Tablero / Siembra ───────────────────────────────────────────────────────
+ 15: signal cell_clicked(col: int, row: int)
+ 16: signal seed_selected(seed_id: StringName)
+ 17: signal plant_planted(plant: Node2D, col: int, row: int)
+ 18: 
+ 19: # ── Combate ─────────────────────────────────────────────────────────────────
+ 20: signal zombie_spawned(zombie: Node2D, row: int)
+ 21: signal zombie_died(zombie: Node2D)
+ 22: signal zombie_reached_house(zombie: Node2D)
+ 23: signal plant_damaged(plant: Node2D, amount: int)
+ 24: signal plant_destroyed(plant: Node2D)
+ 25: signal zombie_damaged(zombie: Node2D, amount: int)
+ 26: 
+ 27: # ── Partida ─────────────────────────────────────────────────────────────────
+ 28: signal wave_started(wave_number: int)
+ 29: signal wave_cleared(wave_number: int)
+ 30: signal game_won()
+ 31: signal game_lost()
+ 32: signal game_paused(paused: bool)
+ 33: 
+ 34: ## Reenvía cualquier señal con un prefijo, útil para debug:
+ 35: ##   EventBus.debug_forward("wave_started", wave_number)
+ 36: func debug_forward(signal_name: String, args: Array = []) -> void:
+ 37: 	emit_signal.callv(signal_name, args)
+
+========================================
+
+=== autoload\game_manager.gd ===
+  1: extends Node
+  2: 
+  3: ## GameManager — Máquina de estados de la partida.
+  4: ##
+  5: ## Estados: MENU -> PLAYING -> (WON | LOST)  y  PAUSED (en cualquier momento).
+  6: ## Es un autoload: accesible desde cualquier nodo como `GameManager`.
+  7: 
+  8: enum State { MENU, PLAYING, WON, LOST, PAUSED }
+  9: 
+ 10: signal state_changed(new_state: State)
+ 11: 
+ 12: var state: State = State.MENU:
+ 13: 	set(value):
+ 14: 		if state == value:
+ 15: 			return
+ 16: 		state = value
+ 17: 		state_changed.emit(state)
+ 18: 
+ 19: func _ready() -> void:
+ 20: 	process_mode = Node.PROCESS_MODE_ALWAYS
+ 21: 	state_changed.connect(_on_state_changed)
+ 22: 
+ 23: ## Cambia de estado validando transiciones permitidas.
+ 24: func change_state(new_state: State) -> bool:
+ 25: 	match state:
+ 26: 		State.MENU:
+ 27: 			if new_state != State.PLAYING:
+ 28: 				return false
+ 29: 		State.PLAYING:
+ 30: 			if new_state not in [State.PAUSED, State.WON, State.LOST]:
+ 31: 				return false
+ 32: 		State.PAUSED:
+ 33: 			if new_state not in [State.PLAYING, State.WON, State.LOST]:
+ 34: 				return false
+ 35: 		State.WON, State.LOST:
+ 36: 			# Desde fin de partida solo se reinicia toda la escena.
+ 37: 			return false
+ 38: 	state = new_state
+ 39: 	return true
+ 40: 
+ 41: func _toggle_pause() -> void:
+ 42: 	if state == State.PLAYING:
+ 43: 		change_state(State.PAUSED)
+ 44: 	elif state == State.PAUSED:
+ 45: 		change_state(State.PLAYING)
+ 46: 
+ 47: func _on_state_changed(new_state: State) -> void:
+ 48: 	match new_state:
+ 49: 		State.PLAYING:
+ 50: 			get_tree().paused = false
+ 51: 		State.PAUSED:
+ 52: 			get_tree().paused = true
+ 53: 		State.WON, State.LOST:
+ 54: 			get_tree().paused = true
+ 55: 		_:
+ 56: 			pass
+ 57: 
+ 58: func _unhandled_input(event: InputEvent) -> void:
+ 59: 	# Con los botones del ratón nos ponemos en pausa sin clicar plantas.
+ 60: 	if event.is_action_pressed("pause"):
+ 61: 		_toggle_pause()
+========================================
+
+=== autoload\plant_library.gd ===
+  1: extends Node
+  2: 
+  3: ## PlantLibrary — Registro central de semillas disponibles (Fase 3).
+  4: ##
+  5: ## Autoload que mapea cada `seed_id` (StringName) a su PlantData (.tres).
+  6: ## Lo consume la SeedBar para construir las ranuras y la lógica de siembra
+  7: ## para instanciar la escena correcta al plantar.
+  8: ##
+  9: ## Para añadir una planta al MVP basta con:
+ 10: ##   1. Crear su .tres en data/plant_data/  (mismo id que el .tres).
+ 11: ##   2. Crear su escena en scenes/plants/   (con PlantData asignado).
+ 12: ##   3. Registrarla aquí en `_register_plants()`.
+ 13: 
+ 14: signal library_ready
+ 15: 
+ 16: const PREFAB_BY_ID := {
+ 17: 	&"sunflower": "res://scenes/plants/sunflower.tscn",
+ 18: 	&"peashooter": "res://scenes/plants/peashooter.tscn",
+ 19: 	&"wallnut": "res://scenes/plants/wallnut.tscn",
+ 20: }
+ 21: 
+ 22: ## seed_id -> PlantData
+ 23: var data_by_id: Dictionary = {}
+ 24: 
+ 25: func _ready() -> void:
+ 26: 	_register_plants()
+ 27: 	library_ready.emit()
+ 28: 
+ 29: ## Devuelve el PlantData de una semilla, o null si no existe.
+ 30: func get_data(seed_id: StringName) -> PlantData:
+ 31: 	return data_by_id.get(seed_id) as PlantData
+ 32: 
+ 33: ## ¿Existe una semilla registrada con este id?
+ 34: func has_seed(seed_id: StringName) -> bool:
+ 35: 	return data_by_id.has(seed_id)
+ 36: 
+ 37: ## Escena listada para una semilla (PackedScene listo para instanciar).
+ 38: func get_scene(seed_id: StringName) -> PackedScene:
+ 39: 	if not PREFAB_BY_ID.has(seed_id):
+ 40: 		push_error("PlantLibrary: no hay escena para la semilla '%s'" % seed_id)
+ 41: 		return null
+ 42: 	return load(PREFAB_BY_ID[seed_id])
+ 43: 
+ 44: func _register_plants() -> void:
+ 45: 	for seed_id: StringName in PREFAB_BY_ID:
+ 46: 		var path := "res://data/plant_data/%s.tres" % seed_id
+ 47: 		if not ResourceLoader.exists(path):
+ 48: 			push_error("PlantLibrary: falta el recurso %s" % path)
+ 49: 			continue
+ 50: 		var res: PlantData = load(path)
+ 51: 		if res == null or res.id != seed_id:
+ 52: 			push_error("PlantLibrary: %s no tiene PlantData válido (id=%s)" % [path, res.id if res else "<null>"])
+ 53: 			continue
+ 54: 		data_by_id[seed_id] = res
+========================================
+
+=== autoload\sun_bank.gd ===
+  1: extends Node
+  2: 
+  3: ## SunBank — Banco de sol (economía) (Fase 2).
+  4: ##
+  5: ## Autoload centralizado para el recurso "sol".
+  6: ## Mantiene el total y emite cambios por EventBus:
+  7: ##   - sun_changed(total)   -> HUD actualiza el contador
+  8: ##   - sun_collected(n)     -> se recogió sol
+  9: ##   - sun_spent(n)         -> se gastó sol (siembra, Fase 3)
+ 10: ##
+ 11: ## La Fase 3 usará can_afford()/spend() desde la lógica de siembra.
+ 12: 
+ 13: const STARTING_SUN := 50
+ 14: 
+ 15: var amount: int = 0
+ 16: 
+ 17: func _ready() -> void:
+ 18: 	amount = STARTING_SUN
+ 19: 	EventBus.sun_changed.emit(amount)
+ 20: 
+ 21: ## Añade sol (p. ej. al recoger un sol del cielo). Emite señales.
+ 22: func add(amount_added: int) -> void:
+ 23: 	if amount_added <= 0:
+ 24: 		return
+ 25: 	amount += amount_added
+ 26: 	EventBus.sun_collected.emit(amount_added)
+ 27: 	EventBus.sun_changed.emit(amount)
+ 28: 
+ 29: ## ¿Hay sol suficiente para pagar `cost`?
+ 30: func can_afford(cost: int) -> bool:
+ 31: 	return amount >= cost
+ 32: 
+ 33: ## Intenta gastar `cost` sol. Devuelve false si no alcanza (no descuenta).
+ 34: func spend(cost: int) -> bool:
+ 35: 	if cost <= 0:
+ 36: 		return true
+ 37: 	if not can_afford(cost):
+ 38: 		return false
+ 39: 	amount -= cost
+ 40: 	EventBus.sun_spent.emit(cost)
+ 41: 	EventBus.sun_changed.emit(amount)
+ 42: 	return true
+========================================
+
+=== data\plant_data.gd ===
+  1: class_name PlantData
+  2: extends Resource
+  3: 
+  4: ## PlantData — Definición data-driven de una planta (Fase 2+).
+  5: ##
+  6: ## Cada variedad es un .tres con sus números, así se balancea sin tocar
+  7: ## código (ver hoja de ruta, sección 3.3). Los campos no usados se dejan
+  8: ## en 0 para que cada planta solo rellene lo que necesita.
+  9: 
+ 10: @export var id: StringName = &""
+ 11: @export var display_name: String = ""
+ 12: @export var cost: int = 50
+ 13: @export var cooldown: float = 7.5
+ 14: @export var max_hp: int = 300
+ 15: 
+ 16: ## Girasol: cada cuántos segundos produce sol (0 = no produce).
+ 17: @export var sun_interval: float = 0.0
+ 18: ## Cuánto sol produce cada vez.
+ 19: @export var sun_amount: int = 25
+ 20: 
+ 21: ## Lanzaguisantes: daño por guisante y cadencia (0 = no dispara).
+ 22: @export var pea_damage: int = 0
+ 23: @export var fire_interval: float = 0.0
+========================================
+
+=== scenes\board\board.gd ===
+  1: extends Node2D
+  2: 
+  3: ## Board — Grilla de juego 9 columnas × 5 filas (Fase 1).
+  4: ##
+  5: ## Genera las celdas (instancias de cell.tscn), las posiciona en el mundo y
+  6: ## mantiene el arreglo `cells[5][9]` que en fases posteriores guardará la
+  7: ## referencia a la planta ocupante o null.
+  8: ##
+  9: ## Coordenadas de celda:
+ 10: ##   - col 0..8  (de izquierda a derecha)
+ 11: ##   - row 0..4  (de arriba a abajo)
+ 12: ##
+ 13: ## Tamaños (constantes del MVP):
+ 14: ##   - Celda: 80 x 100 px
+ 15: ##   - Board completo: 720 x 500 px
+ 16: ## El origen local (0,0) del Board coincide con su centro; el lado superior
+ 17: ## izquierdo está en -BOARD_SIZE/2.
+ 18: 
+ 19: signal cell_hovered(col: int, row: int)
+ 20: 
+ 21: const CELL_SIZE := Vector2(80, 100)
+ 22: const COLS := 9
+ 23: const ROWS := 5
+ 24: const BOARD_SIZE := Vector2(CELL_SIZE.x * COLS, CELL_SIZE.y * ROWS)
+ 25: 
+ 26: const CELL_SCENE := preload("res://scenes/board/cell.tscn")
+ 27: 
+ 28: const COLOR_LAWN_A := Color(0.35, 0.75, 0.3, 1.0)
+ 29: const COLOR_LAWN_B := Color(0.42, 0.78, 0.36, 1.0)
+ 30: const COLOR_EDGE := Color(0.20, 0.45, 0.18, 1.0)
+ 31: 
+ 32: ## cells[row][col] -> Cell (referencia al nodo).
+ 33: var cells: Array = []
+ 34: 
+ 35: ## Semilla seleccionada (que está a la espera de click en una celda),
+ 36: ## o &"" si no hay ninguna. Una planta por celda la valida `can_plant`.
+ 37: var pending_seed: StringName = &""
+ 38: 
+ 39: func _ready() -> void:
+ 40: 	_build_lawn_background()
+ 41: 	_build_cells()
+ 42: 	EventBus.cell_clicked.connect(_on_cell_clicked)
+ 43: 	EventBus.seed_selected.connect(_on_seed_selected)
+ 44: 	EventBus.plant_destroyed.connect(_on_plant_destroyed)
+ 45: 	# Si cambia el saldo (p. ej. recoges sol), los previews se recalculan.
+ 46: 	EventBus.sun_changed.connect(func(_total: int) -> void: _refresh_previews())
+ 47: 
+ 48: ## Devuelve el centro LOCAL de la celda (col, row) dentro del Board.
+ 49: func cell_center(col: int, row: int) -> Vector2:
+ 50: 	var top_left := -BOARD_SIZE / 2.0
+ 51: 	return top_left + Vector2(CELL_SIZE.x * (col + 0.5), CELL_SIZE.y * (row + 0.5))
+ 52: 
+ 53: ## Devuelve el centro GLOBAL (mundo) de la celda (col, row).
+ 54: ## Útil para instanciar plantas/zombies dentro de otras escenas.
+ 55: func world_center(col: int, row: int) -> Vector2:
+ 56: 	return to_global(cell_center(col, row))
+ 57: 
+ 58: ## ¿La coordenada (col, row) es válida dentro del board?
+ 59: func is_valid(col: int, row: int) -> bool:
+ 60: 	return col >= 0 and col < COLS and row >= 0 and row < ROWS
+ 61: 
+ 62: ## La celda en (col, row) — null si fuera del tablero.
+ 63: func get_cell(col: int, row: int) -> Cell:
+ 64: 	if not is_valid(col, row):
+ 65: 		return null
+ 66: 	return cells[row][col]
+ 67: 
+ 68: ## Convierte una posición del mundo a coordenadas de celda (col, row),
+ 69: ## o (-1, -1) si está fuera del tablero. Útil para previews en fases posteriores.
+ 70: func world_to_cell(world_pos: Vector2) -> Vector2i:
+ 71: 	var local := to_local(world_pos) + BOARD_SIZE / 2.0
+ 72: 	var col := int(local.x / CELL_SIZE.x)
+ 73: 	var row := int(local.y / CELL_SIZE.y)
+ 74: 	if is_valid(col, row):
+ 75: 		return Vector2i(col, row)
+ 76: 	return Vector2i(-1, -1)
+ 77: 
+ 78: ## Planta que ocupa la celda (col, row), o null si está vacía.
+ 79: func plant_at(col: int, row: int) -> Plant:
+ 80: 	var cell: Cell = get_cell(col, row)
+ 81: 	if cell == null:
+ 82: 		return null
+ 83: 	return cell.plant
+ 84: 
+ 85: ## ¿Se puede plantar la semilla `seed_id` en esta celda?
+ 86: ## (Existe la semilla, la celda es válida y está vacía, y hay sol.)
+ 87: func can_plant(seed_id: StringName, col: int, row: int) -> bool:
+ 88: 	if seed_id == &"" or not PlantLibrary.has_seed(seed_id):
+ 89: 		return false
+ 90: 	if not is_valid(col, row):
+ 91: 		return false
+ 92: 	if plant_at(col, row) != null:
+ 93: 		return false
+ 94: 	return SunBank.can_afford(PlantLibrary.get_data(seed_id).cost)
+ 95: 
+ 96: ## Fase 3: instancia la planta de la semilla en la celda (col, row) y la
+ 97: ## registra. Devuelve la planta creada o null si no se pudo.
+ 98: func plant(seed_id: StringName, col: int, row: int) -> Plant:
+ 99: 	if not can_plant(seed_id, col, row):
+100: 		return null
+101: 	var scene: PackedScene = PlantLibrary.get_scene(seed_id)
+102: 	if scene == null:
+103: 		return null
+104: 	var plant: Plant = scene.instantiate()
+105: 	plant.setup(col, row)
+106: 	plant.global_position = world_center(col, row)
+107: 	# La añade al árbol ANTES de set_plant (los @onready de la planta corren).
+108: 	get_tree().get_first_node_in_group("entities").add_child(plant)
+109: 	_cell(col, row).set_plant(plant)
+110: 	EventBus.plant_planted.emit(plant, col, row)
+111: 	return plant
+112: 
+113: ## Registra la planta en su celda (público para que Main la inserte).
+114: func register_plant(plant: Plant) -> void:
+115: 	var cell: Cell = get_cell(plant.col, plant.row)
+116: 	if cell:
+117: 		cell.set_plant(plant)
+118: 
+119: func _cell(col: int, row: int) -> Cell:
+120: 	return cells[row][col] if is_valid(col, row) else null
+121: 
+122: func _on_seed_selected(seed_id: StringName) -> void:
+123: 	pending_seed = seed_id
+124: 	_refresh_previews()
+125: 
+126: ## Fase 3: al destruirse una planta se libera su celda.
+127: func _on_plant_destroyed(plant: Node) -> void:
+128: 	if plant is Plant:
+129: 		var cell: Cell = _cell(plant.col, plant.row)
+130: 		if cell:
+131: 			cell.clear_plant()
+132: 
+133: ## Pinta preview verde/rojo en TODAS las celdas según la semilla pendiente
+134: ## (verde = se puede plantar, rojo = no se puede). Sin semilla, limpia.
+135: func _refresh_previews() -> void:
+136: 	for row in ROWS:
+137: 		for col in COLS:
+138: 			var cell: Cell = _cell(col, row)
+139: 			if pending_seed == &"":
+140: 				cell.set_preview(Cell.PREVIEW_NONE)
+141: 			elif can_plant(pending_seed, col, row):
+142: 				cell.set_preview(Cell.PREVIEW_OK)
+143: 			else:
+144: 				cell.set_preview(Cell.PREVIEW_BAD)
+145: 
+146: func _build_lawn_background() -> void:
+147: 	var top_left := -BOARD_SIZE / 2.0
+148: 
+149: 	# Relleno principal.
+150: 	var lawn := ColorRect.new()
+151: 	lawn.size = BOARD_SIZE
+152: 	lawn.position = top_left
+153: 	lawn.color = COLOR_LAWN_A
+154: 	lawn.mouse_filter = Control.MOUSE_FILTER_IGNORE
+155: 	add_child(lawn)
+156: 
+157: 	# Filas alternas más claras (efecto césped rayado).
+158: 	for row in ROWS:
+159: 		if row % 2 == 0:
+160: 			continue
+161: 		var stripe := ColorRect.new()
+162: 		stripe.size = Vector2(BOARD_SIZE.x, CELL_SIZE.y)
+163: 		stripe.position = top_left + Vector2(0.0, row * CELL_SIZE.y)
+164: 		stripe.color = COLOR_LAWN_B
+165: 		stripe.mouse_filter = Control.MOUSE_FILTER_IGNORE
+166: 		add_child(stripe)
+167: 
+168: 	# Marco/borde (se dibuja detrás del césped).
+169: 	var edge := 4.0
+170: 	var frame := ColorRect.new()
+171: 	frame.size = BOARD_SIZE + Vector2(edge * 2.0, edge * 2.0)
+172: 	frame.position = top_left - Vector2(edge, edge)
+173: 	frame.color = COLOR_EDGE
+174: 	frame.mouse_filter = Control.MOUSE_FILTER_IGNORE
+175: 	add_child(frame)
+176: 	frame.move_to_back()
+177: 
+178: func _build_cells() -> void:
+179: 	for row in ROWS:
+180: 		var row_arr: Array = []
+181: 		for col in COLS:
+182: 			var cell: Cell = CELL_SCENE.instantiate()
+183: 			cell.setup(col, row)
+184: 			cell.position = cell_center(col, row)
+185: 			add_child(cell)
+186: 			row_arr.append(cell)
+187: 		cells.append(row_arr)
+188: 
+189: func _on_cell_clicked(col: int, row: int) -> void:
+190: 	print("[Board] Celda clicada -> col=%d, fila=%d" % [col, row])
+191: 
+192: 	# Fase 3: si hay una semilla seleccionada, intenta plantarla.
+193: 	if pending_seed != &"":
+194: 		var planted: Plant = plant(pending_seed, col, row)
+195: 		if planted != null:
+196: 			print("[Board] Plantada '%s' en (%d,%d)" % [pending_seed, col, row])
+197: 			# El Main (que escucha plant_planted) paga el sol y reinicia el
+198: 			# cooldown de la ranura; aquí solo limpiamos el preview.
+199: 			pending_seed = &""
+200: 			_refresh_previews()
+201: 		else:
+202: 			print("[Board] No se pudo plantar '%s' en (%d,%d)" % [pending_seed, col, row])
+========================================
+
+=== scenes\board\cell.gd ===
+  1: class_name Cell
+  2: extends Area2D
+  3: 
+  4: ## Cell — Una celda de la grilla del Board (Fase 1+3).
+  5: ##
+  6: ## Detecta hover y clic, y emite por EventBus la coordenada (col, row).
+  7: ## En la Fase 3 muestra el preview de siembra (verde = válida, rojo =
+  8: ## inválida) y guarda la referencia a la planta que la ocupa.
+  9: ##
+ 10: ## OJO: `setup()` solo guarda valores (se llama ANTES de add_child, cuando
+ 11: ## los @onready aún no existen). El pintado se aplica en _ready().
+ 12: 
+ 13: ## Modos de preview de siembra.
+ 14: enum Preview { NONE, OK, BAD }
+ 15: 
+ 16: @export var col: int = 0
+ 17: @export var row: int = 0
+ 18: 
+ 19: ## Planta que ocupa la celda (null = libre).
+ 20: var plant: Plant = null
+ 21: var _preview: Preview = Preview.NONE
+ 22: 
+ 23: @onready var _highlight: ColorRect = $Highlight
+ 24: @onready var _base: ColorRect = $Base
+ 25: 
+ 26: const COLOR_A := Color(0.42, 0.78, 0.36, 1.0)  # verde claro
+ 27: const COLOR_B := Color(0.36, 0.70, 0.32, 1.0)  # verde oscuro (alterno por fila)
+ 28: const COLOR_HOVER := Color(1.0, 1.0, 0.6, 0.35) # amarillo translúcido
+ 29: const COLOR_PREVIEW_OK := Color(0.35, 1.0, 0.45, 0.45)
+ 30: const COLOR_PREVIEW_BAD := Color(1.0, 0.3, 0.3, 0.45)
+ 31: 
+ 32: ## Captura los datos de la celda. NO tocar nodos aquí (aún no está en el árbol).
+ 33: func setup(p_col: int, p_row: int) -> void:
+ 34: 	col = p_col
+ 35: 	row = p_row
+ 36: 
+ 37: func _ready() -> void:
+ 38: 	_base.color = COLOR_A if row % 2 == 0 else COLOR_B
+ 39: 	input_event.connect(_on_input_event)
+ 40: 	mouse_entered.connect(_on_mouse_entered)
+ 41: 	mouse_exited.connect(_on_mouse_exited)
+ 42: 
+ 43: func _on_mouse_entered() -> void:
+ 44: 	# El hover no debe pisar un preview de siembra activo.
+ 45: 	if _preview == Preview.NONE:
+ 46: 		_highlight.color = COLOR_HOVER
+ 47: 
+ 48: func _on_mouse_exited() -> void:
+ 49: 	if _preview == Preview.NONE:
+ 50: 		_highlight.color = Color.TRANSPARENT
+ 51: 
+ 52: ## ── Ocupación (Fase 3) ────────────────────────────────────────────────────
+ 53: 
+ 54: func is_occupied() -> bool:
+ 55: 	return plant != null and is_instance_valid(plant)
+ 56: 
+ 57: func set_plant(p_plant: Plant) -> void:
+ 58: 	plant = p_plant
+ 59: 
+ 60: func clear_plant() -> void:
+ 61: 	plant = null
+ 62: 
+ 63: ## ── Preview de siembra (Fase 3) ───────────────────────────────────────────
+ 64: 
+ 65: func set_preview(mode: Preview) -> void:
+ 66: 	_preview = mode
+ 67: 	_update_preview_color()
+ 68: 
+ 69: func _update_preview_color() -> void:
+ 70: 	match _preview:
+ 71: 		Preview.OK:
+ 72: 			_highlight.color = COLOR_PREVIEW_OK
+ 73: 		Preview.BAD:
+ 74: 			_highlight.color = COLOR_PREVIEW_BAD
+ 75: 		_:
+ 76: 			_highlight.color = Color.TRANSPARENT
+ 77: 
+ 78: func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+ 79: 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+ 80: 		EventBus.cell_clicked.emit(col, row)
+========================================
+
+=== scenes\main\main.gd ===
+  1: extends Node2D
+  2: 
+  3: ## Main — Raíz de la partida.
+  4: ##
+  5: ## Fase 2: Board (grilla 9x5) + lluvia de sol (SunLayer) + HUD con contador.
+  6: ## Fase 3: orquesta la siembra — al recibir `plant_planted` del Board paga
+  7: ## el sol y arranca el cooldown de la ranura correspondiente.
+  8: ## Fase 4/5: hotkeys de debug para probar combate:
+  9: ##   - Z: spawnea un zombie de prueba en la fila 0
+ 10: ##   - G: spawnea un zombie por cada fila (0..4)
+ 11: ##   - T: te da 1000☀ (probar plantas caras rápido)
+ 12: 
+ 13: const ZOMBIE_SCENE := preload("res://scenes/zombies/zombie.tscn")
+ 14: 
+ 15: @onready var board: Node2D = $Board
+ 16: @onready var entities: Node2D = $Entities
+ 17: @onready var fps_label: Label = %FpsLabel
+ 18: @onready var seed_bar: HBoxContainer = $UI/HUD/SeedBar
+ 19: 
+ 20: func _ready() -> void:
+ 21: 	EventBus.plant_planted.connect(_on_plant_planted)
+ 22: 	EventBus.zombie_reached_house.connect(_on_zombie_reached_house)
+ 23: 	seed_bar.clear_selection()
+ 24: 
+ 25: func _process(_delta: float) -> void:
+ 26: 	fps_label.text = "FPS: %d" % Engine.get_frames_per_second()
+ 27: 
+ 28: func _unhandled_input(event: InputEvent) -> void:
+ 29: 	if event is InputEventKey and event.pressed and not event.echo:
+ 30: 		match event.keycode:
+ 31: 			KEY_Z:
+ 32: 				_spawn_test_zombie(0)
+ 33: 			KEY_G:
+ 34: 				for r in 5:
+ 35: 					_spawn_test_zombie(r)
+ 36: 			KEY_T:
+ 37: 				SunBank.add(1000)
+ 38: 				print("[Main] +1000☀ (total: %d)" % SunBank.amount)
+ 39: 
+ 40: ## Debug: spawnea un zombie en la fila `row` entrando por la derecha.
+ 41: func _spawn_test_zombie(row: int) -> void:
+ 42: 	var zombie: Zombie = ZOMBIE_SCENE.instantiate()
+ 43: 	zombie.setup(row)
+ 44: 	zombie.global_position = Vector2(board.world_center(8, row).x + 40.0, board.world_center(0, row).y)
+ 45: 	entities.add_child(zombie)
+ 46: 	print("[Main] Zombie de prueba spawneado en fila %d" % row)
+ 47: 
+ 48: ## Fase 3: al plantarse una planta (lo hace el Board), pagamos el sol y
+ 49: ## ponemos la ranura en cooldown.
+ 50: func _on_plant_planted(plant: Node2D, _col: int, _row: int) -> void:
+ 51: 	if plant == null or not (plant is Plant):
+ 52: 		return
+ 53: 	var p: Plant = plant as Plant
+ 54: 	if p.data == null:
+ 55: 		return
+ 56: 	SunBank.spend(p.data.cost)
+ 57: 	print("[Main] Plantada %s — coste %d☀ (restante: %d☀)" % [p.data.display_name, p.data.cost, SunBank.amount])
+ 58: 	# Reinicia la selección de la barra (si el jugador quiere re-sembrar,
+ 59: 	# vuelve a pulsar la ranura cuando el cooldown termine).
+ 60: 	seed_bar.clear_selection()
+ 61: 	seed_bar.start_cooldown(p.data.id)
+ 62: 
+ 63: ## Fase 5: un zombie llegó a la casa → derrota (placeholder: log + pausa).
+ 64: func _on_zombie_reached_house(_zombie: Node2D) -> void:
+ 65: 	print("[Main] 💀 ¡DERROTA! Un zombie llegó a la casa")
+ 66: 	EventBus.game_lost.emit()
+ 67: 	GameManager.change_state(GameManager.State.LOST)
+========================================
+
+=== scenes\plants\peashooter.gd ===
+  1: class_name Peashooter
+  2: extends Plant
+  3: 
+  4: ## Peashooter — 🔫 Lanzaguisantes (Fase 4).
+  5: ##
+  6: ## Dispara un guisante por su fila cada `data.fire_interval` segundos,
+  7: ## pero SOLO si hay un zombie en su carril (evita disparar al vacío).
+  8: ## Si no hay objetivo deja de disparar hasta que aparezca uno.
+  9: 
+ 10: const PEA_SCENE := preload("res://scenes/projectiles/pea.tscn")
+ 11: 
+ 12: var _timer: Timer
+ 13: 
+ 14: func _ready() -> void:
+ 15: 	_timer = Timer.new()
+ 16: 	_timer.wait_time = data.fire_interval if data and data.fire_interval > 0.0 else 1.4
+ 17: 	_timer.timeout.connect(_try_fire)
+ 18: 	add_child(_timer)
+ 19: 	_timer.start()
+ 20: 
+ 21: func _try_fire() -> void:
+ 22: 	if hp <= 0:
+ 23: 		return
+ 24: 	if _has_zombie_in_row():
+ 25: 		_fire()
+ 26: 
+ 27: func _has_zombie_in_row() -> bool:
+ 28: 	for zombie in get_tree().get_nodes_in_group("zombies"):
+ 29: 		if is_instance_valid(zombie) and zombie.row == row:
+ 30: 			return true
+ 31: 	return false
+ 32: 
+ 33: func _fire() -> void:
+ 34: 	var pea: Pea = PEA_SCENE.instantiate()
+ 35: 	pea.setup(row, data.pea_damage if data else 20)
+ 36: 	# Sale por la boca del tubo (a la derecha de la planta).
+ 37: 	pea.global_position = global_position + Vector2(30, 0)
+ 38: 	# Misma capa que el resto de entidades del tablero.
+ 39: 	get_tree().get_first_node_in_group("entities").add_child(pea)
+ 40: 
+ 41: ## Placeholder visual: cuerpo + tubo hacia la derecha + ojo.
+ 42: func _draw() -> void:
+ 43: 	var body_green := Color(0.28, 0.72, 0.3)
+ 44: 	var tube_green := Color(0.18, 0.55, 0.22)
+ 45: 
+ 46: 	# Cuerpo.
+ 47: 	draw_circle(Vector2.ZERO, 22.0, body_green)
+ 48: 
+ 49: 	# Tubo/boca hacia la derecha (dirección de disparo).
+ 50: 	draw_rect(Rect2(10.0, -6.0, 22.0, 12.0), tube_green)
+ 51: 
+ 52: 	# Ojo (mira hacia la derecha).
+ 53: 	draw_circle(Vector2(-8.0, -7.0), 5.5, Color.WHITE)
+ 54: 	draw_circle(Vector2(-6.0, -7.0), 2.6, Color.BLACK)
+========================================
+
+=== scenes\plants\plant.gd ===
+  1: class_name Plant
+  2: extends Node2D
+  3: 
+  4: ## Plant — Clase base de todas las plantas (Fase 2+).
+  5: ##
+  6: ## Cada variedad hereda y sobrescribe:_draw() para su placeholder visual y
+  7: ## su comportamiento (disparar, producir sol, tanquear). Extensible por
+  8: ## herencia: Fase 4 (lanzaguisantes) y Fase 5 (nuez) solo añaden lógica.
+  9: 
+ 10: @export var data: PlantData
+ 11: 
+ 12: var hp: int = 0
+ 13: var col: int = -1
+ 14: var row: int = -1
+ 15: 
+ 16: ## Registra la posición de grilla y aplica el HP del resource.
+ 17: ## (Usar tras instantiate; `data` ya viene asignado desde el .tscn.)
+ 18: func setup(p_col: int, p_row: int) -> void:
+ 19: 	col = p_col
+ 20: 	row = p_row
+ 21: 	hp = data.max_hp if data else 0
+ 22: 
+ 23: func take_damage(amount: int) -> void:
+ 24: 	if hp <= 0:
+ 25: 		return
+ 26: 	hp = maxi(0, hp - amount)
+ 27: 	EventBus.plant_damaged.emit(self, amount)
+ 28: 	if hp == 0:
+ 29: 		_die()
+ 30: 
+ 31: func _die() -> void:
+ 32: 	EventBus.plant_destroyed.emit(self)
+ 33: 	queue_free()
+ 34: 
+ 35: ## Placeholder visual genérico (círculo verde). Cada planta lo sobrescribe.
+ 36: func _draw() -> void:
+ 37: 	draw_circle(Vector2.ZERO, 22.0, Color(0.2, 0.8, 0.3))
+========================================
+
+=== scenes\plants\sunflower.gd ===
+  1: class_name Sunflower
+  2: extends Plant
+  3: 
+  4: ## Sunflower — 🌻 Girasol (Fase 2).
+  5: ##
+  6: ## Produce un sol cada `data.sun_interval` segundos; el sol emerge junto a
+  7: ## la planta y puede recogerse con clic igual que los del cielo.
+  8: 
+  9: const SUN_SCENE := preload("res://scenes/sun/sun.tscn")
+ 10: 
+ 11: var _timer: Timer
+ 12: 
+ 13: func _ready() -> void:
+ 14: 	_timer = Timer.new()
+ 15: 	_timer.wait_time = data.sun_interval if data and data.sun_interval > 0.0 else 24.0
+ 16: 	_timer.timeout.connect(_produce_sun)
+ 17: 	add_child(_timer)
+ 18: 	_timer.start()
+ 19: 
+ 20: func _produce_sun() -> void:
+ 21: 	var layer := get_tree().get_first_node_in_group("sun_layer")
+ 22: 	if layer == null:
+ 23: 		return
+ 24: 	var sun: Node2D = SUN_SCENE.instantiate()
+ 25: 	# Añadir ANTES de pop_at: los tweens necesitan el nodo dentro del árbol.
+ 26: 	layer.add_child(sun)
+ 27: 	# El sol sale por un lado de la cabeza del girasol.
+ 28: 	sun.pop_at(global_position + Vector2(30, -70))
+ 29: 
+ 30: ## Placeholder visual: tallo verde + cabeza con pétalos amarillos.
+ 31: func _draw() -> void:
+ 32: 	var stem_green := Color(0.2, 0.65, 0.25)
+ 33: 	var petal_yellow := Color(1.0, 0.85, 0.2)
+ 34: 	var center_brown := Color(0.5, 0.32, 0.12)
+ 35: 
+ 36: 	# Tallo (desde el suelo de la celda hasta la cabeza).
+ 37: 	draw_rect(Rect2(-3.0, -46.0, 6.0, 46.0), stem_green)
+ 38: 
+ 39: 	# Pétalos: 10 círculos alrededor del centro.
+ 40: 	var head := Vector2(0, -46)
+ 41: 	for i in 10:
+ 42: 		var angle := TAU * i / 10.0
+ 43: 		var dir := Vector2.from_angle(angle)
+ 44: 		draw_circle(head + dir * 18.0, 8.0, petal_yellow)
+ 45: 
+ 46: 	# Centro.
+ 47: 	draw_circle(head, 14.0, center_brown)
+========================================
+
+=== scenes\plants\wallnut.gd ===
+  1: class_name Wallnut
+  2: extends Plant
+  3: 
+  4: ## Wallnut — 🥜 Nuez (Fase 3: solo siembra y placeholder).
+  5: ##
+  6: ## En la Fase 4+ la nuez solo tiene HP alto (4000) y bloquea a los zombies;
+  7: ## aquí ya queda lista para sembrarse con su placeholder visual.
+  8: 
+  9: func _draw() -> void:
+ 10: 	var shell_brown := Color(0.58, 0.36, 0.16)
+ 11: 	var shell_dark := Color(0.42, 0.25, 0.1)
+ 12: 
+ 13: 	# Cuerpo (cáscara).
+ 14: 	draw_circle(Vector2.ZERO, 24.0, shell_brown)
+ 15: 
+ 16: 	# Costura central de la cáscara.
+ 17: 	draw_rect(Rect2(-2.5, -20.0, 5.0, 40.0), shell_dark)
+ 18: 
+ 19: 	# Ojos.
+ 20: 	draw_circle(Vector2(-9.0, -8.0), 5.0, Color.WHITE)
+ 21: 	draw_circle(Vector2(-8.5, -8.0), 2.4, Color.BLACK)
+ 22: 	draw_circle(Vector2(9.0, -8.0), 5.0, Color.WHITE)
+ 23: 	draw_circle(Vector2(9.5, -8.0), 2.4, Color.BLACK)
+ 24: 
+ 25: 	# Boca.
+ 26: 	draw_rect(Rect2(-4.0, 4.0, 8.0, 3.0), shell_dark)
+========================================
+
+=== scenes\projectiles\pea.gd ===
+  1: class_name Pea
+  2: extends Area2D
+  3: 
+  4: ## Pea — 🟢 Guisante (Fase 4).
+  5: ##
+  6: ## Viaja por su fila (misma `row` en la que se disparó) hacia la derecha.
+  7: ## Golpea al primer zombie de su carril que encuentre (detección por fila
+  8: ## + rango en X, según la decisión de la sección 6 de la hoja de ruta).
+  9: ##
+ 10: ## Si atraviesa todo el tablero sin impactar, se elimina (se marca para
+ 11: ## evitar doble impacto).
+ 12: 
+ 13: const SPEED := 420.0        # píxeles/segundo hacia la derecha
+ 14: const KILL_X := 1350.0      # fuera del tablero (1280+)
+ 15: 
+ 16: var row: int = 0
+ 17: var damage: int = 20
+ 18: var _dead: bool = false
+ 19: 
+ 20: func setup(p_row: int, p_damage: int) -> void:
+ 21: 	row = p_row
+ 22: 	damage = p_damage
+ 23: 
+ 24: func _process(delta: float) -> void:
+ 25: 	if _dead:
+ 26: 		return
+ 27: 	global_position.x += SPEED * delta
+ 28: 	_try_hit()
+ 29: 	if not _dead and global_position.x > KILL_X:
+ 30: 		queue_free()
+ 31: 
+ 32: ## Busca al zombie más cercano (menor X) en este carril y lo golpea.
+ 33: func _try_hit() -> void:
+ 34: 	var best: Node2D = null
+ 35: 	var best_x := INF
+ 36: 	for zombie in get_tree().get_nodes_in_group("zombies"):
+ 37: 		if not is_instance_valid(zombie):
+ 38: 			continue
+ 39: 		if zombie.row != row:
+ 40: 			continue
+ 41: 		var zx := zombie.global_position.x
+ 42: 		if zx <= global_position.x:
+ 43: 			continue
+ 44: 		# El guisante impacta cuando su centro alcanza el cuerpo del zombie.
+ 45: 		if zx - global_position.x > 26.0:
+ 46: 			continue
+ 47: 		if zx < best_x:
+ 48: 			best_x = zx
+ 49: 			best = zombie
+ 50: 	if best != null:
+ 51: 		_dead = true
+ 52: 		best.take_damage(damage)
+ 53: 		queue_free()
+ 54: 
+ 55: ## Placeholder visual: guisante verde.
+ 56: func _draw() -> void:
+ 57: 	draw_circle(Vector2.ZERO, 7.0, Color(0.35, 0.8, 0.3))
+ 58: 	draw_circle(Vector2(2.0, -2.0), 2.4, Color(0.6, 0.95, 0.5))
+========================================
+
+=== scenes\sun\sun.gd ===
+  1: class_name Sun
+  2: extends Area2D
+  3: 
+  4: ## Sun — ☀️ Sol del juego (Fase 2).
+  5: ##
+  6: ## Estados: FALLING (cae del cielo) -> GROUND (en el suelo, recogible) ->
+  7: ## COLLECTED (vuela al contador del HUD y suma a SunBank).
+  8: ## El girasol también lo usa: `pop_at()` lo hace aparecer ya en el suelo.
+  9: 
+ 10: enum State { FALLING, GROUND, COLLECTED }
+ 11: 
+ 12: const VALUE := 25
+ 13: const GROUND_LIFETIME := 8.0
+ 14: 
+ 15: const COLOR_CORE := Color(1.0, 0.95, 0.55)
+ 16: const COLOR_BODY := Color(1.0, 0.88, 0.2)
+ 17: const COLOR_RAY := Color(1.0, 0.8, 0.15)
+ 18: 
+ 19: var state: State = State.FALLING
+ 20: var value: int = VALUE
+ 21: 
+ 22: func _ready() -> void:
+ 23: 	input_event.connect(_on_input_event)
+ 24: 
+ 25: ## Cae desde `start_pos` hasta `target_pos` (lluvia del cielo).
+ 26: func fall_from(start_pos: Vector2, target_pos: Vector2, fall_time: float = 3.0) -> void:
+ 27: 	state = State.FALLING
+ 28: 	global_position = start_pos
+ 29: 	modulate.a = 1.0
+ 30: 	scale = Vector2.ONE
+ 31: 	var tween := create_tween()
+ 32: 	tween.tween_property(self, "global_position", target_pos, fall_time) \
+ 33: 		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+ 34: 	tween.tween_callback(_land)
+ 35: 
+ 36: ## Aparece ya en el suelo con un pequeño rebote (sol del girasol).
+ 37: func pop_at(pos: Vector2) -> void:
+ 38: 	state = State.GROUND
+ 39: 	global_position = pos
+ 40: 	modulate.a = 1.0
+ 41: 	scale = Vector2.ZERO
+ 42: 	var tween := create_tween()
+ 43: 	tween.tween_property(self, "scale", Vector2.ONE, 0.3) \
+ 44: 		.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+ 45: 	_start_ground_lifetime()
+ 46: 
+ 47: func _land() -> void:
+ 48: 	if state != State.FALLING:
+ 49: 		return
+ 50: 	state = State.GROUND
+ 51: 	_start_ground_lifetime()
+ 52: 
+ 53: ## Si nadie lo recoge, se desvanece y desaparece.
+ 54: func _start_ground_lifetime() -> void:
+ 55: 	await get_tree().create_timer(GROUND_LIFETIME).timeout
+ 56: 	if not is_instance_valid(self) or state != State.GROUND:
+ 57: 		return
+ 58: 	var tween := create_tween()
+ 59: 	tween.tween_property(self, "modulate:a", 0.0, 0.5)
+ 60: 	tween.tween_callback(queue_free)
+ 61: 
+ 62: func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+ 63: 	if state != State.GROUND:
+ 64: 		return
+ 65: 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+ 66: 		_collect()
+ 67: 
+ 68: func _collect() -> void:
+ 69: 	if state == State.COLLECTED:
+ 70: 		return
+ 71: 	state = State.COLLECTED
+ 72: 	# Cancela cualquier tween en curso (p. ej. el desvanecimiento final).
+ 73: 	for tween in get_tweens():
+ 74: 		tween.kill()
+ 75: 
+ 76: 	# Vuela hacia el ancla del contador de sol del HUD.
+ 77: 	var target := Vector2(118, 40)  # fallback si no hay ancla
+ 78: 	var anchor := get_tree().get_first_node_in_group("sun_anchor")
+ 79: 	if anchor:
+ 80: 		target = anchor.get_global_transform_with_canvas().origin
+ 81: 
+ 82: 	var tween := create_tween()
+ 83: 	tween.set_parallel(true)
+ 84: 	tween.tween_property(self, "global_position", target, 0.3) \
+ 85: 		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+ 86: 	tween.tween_property(self, "scale", Vector2(0.35, 0.35), 0.3)
+ 87: 	await tween.finished
+ 88: 	SunBank.add(value)
+ 89: 	queue_free()
+ 90: 
+ 91: ## Placeholder visual: núcleo + cuerpo + 8 rayos.
+ 92: func _draw() -> void:
+ 93: 	draw_circle(Vector2.ZERO, 18.0, COLOR_BODY)
+ 94: 	draw_circle(Vector2.ZERO, 10.0, COLOR_CORE)
+ 95: 	for i in 8:
+ 96: 		var dir := Vector2.from_angle(TAU * i / 8.0)
+ 97: 		draw_circle(dir * 24.0, 6.0, COLOR_RAY)
+========================================
+
+=== scenes\sun\sun_spawner.gd ===
+  1: extends Node2D
+  2: 
+  3: ## SunSpawner — Lluvia de sol del cielo (Fase 2).
+  4: ##
+  5: ## Este script va en el nodo `SunLayer` (grupo "sun_layer") dentro de Main.
+  6: ## Suelta un sol cada 7-13 s en una posición X aleatoria sobre el tablero;
+  7: ## el sol cae 3 s hasta una profundidad aleatoria y queda recogible.
+  8: 
+  9: const SUN_SCENE := preload("res://scenes/sun/sun.tscn")
+ 10: 
+ 11: ## Rango horizontal de caída (sobre el césped del board, 280..1000).
+ 12: const SPAWN_X_MIN := 300.0
+ 13: const SPAWN_X_MAX := 980.0
+ 14: ## Rango de profundidad a la que aterriza.
+ 15: const LAND_Y_MIN := 150.0
+ 16: const LAND_Y_MAX := 590.0
+ 17: 
+ 18: @onready var _timer: Timer = $SpawnTimer
+ 19: 
+ 20: func _ready() -> void:
+ 21: 	_timer.timeout.connect(_spawn_sky_sun)
+ 22: 	_timer.wait_time = randf_range(2.0, 4.0)  # primer sol pronto
+ 23: 	_timer.start()
+ 24: 
+ 25: func _spawn_sky_sun() -> void:
+ 26: 	var sun: Node2D = SUN_SCENE.instantiate()
+ 27: 	var spawn_x := randf_range(SPAWN_X_MIN, SPAWN_X_MAX)
+ 28: 	var start := Vector2(spawn_x, -40.0)
+ 29: 	var target := Vector2(spawn_x, randf_range(LAND_Y_MIN, LAND_Y_MAX))
+ 30: 	sun.global_position = start
+ 31: 	add_child(sun)
+ 32: 	sun.fall_from(start, target, 3.0)
+ 33: 	EventBus.sun_dropped.emit(sun)
+ 34: 
+ 35: 	# Siguiente sol en 7-13 s.
+ 36: 	_timer.wait_time = randf_range(7.0, 13.0)
+========================================
+
+=== scenes\zombies\zombie.gd ===
+  1: class_name Zombie
+  2: extends CharacterBody2D
+  3: 
+  4: ## Zombie — 🧟 Zombie básico (Fase 5).
+  5: ##
+  6: ## Camina por su carril de derecha a izquierda. Si encuentra una planta en
+  7: ## su celda la muerde (100 daño / 0.5 s) hasta destruirla y luego sigue.
+  8: ## Si llega al borde izquierdo (la casa), emite zombie_reached_house.
+  9: ##
+ 10: ## Números configurados por export (balance inicial, sección 5 de la hoja).
+ 11: 
+ 12: const WALK_SPEED := 7.0           # píxeles/segundo (lento, "shambling")
+ 13: const HOUSE_X := 68.0             # borde izquierdo = la casa
+ 14: const BITE_DAMAGE := 100
+ 15: const BITE_INTERVAL := 0.5        # segundos entre mordidas
+ 16: const BITE_RANGE := 50.0          # píxeles a la izquierda donde muerde
+ 17: 
+ 18: var hp: int = 200
+ 19: var row: int = 0
+ 20: 
+ 21: var _eating: bool = false
+ 22: var _bite_timer: float = 0.0
+ 23: var _target: Plant = null
+ 24: var _reached_house: bool = false
+ 25: 
+ 26: func _ready() -> void:
+ 27: 	EventBus.zombie_spawned.emit(self, row)
+ 28: 
+ 29: ## Registra la fila en la que camina (la pone Main al instanciarlo).
+ 30: func setup(p_row: int) -> void:
+ 31: 	row = p_row
+ 32: 
+ 33: func take_damage(amount: int) -> void:
+ 34: 	if hp <= 0:
+ 35: 		return
+ 36: 	hp = maxi(0, hp - amount)
+ 37: 	EventBus.zombie_damaged.emit(self, amount)
+ 38: 	if hp == 0:
+ 39: 		_die()
+ 40: 
+ 41: func _die() -> void:
+ 42: 	EventBus.zombie_died.emit(self)
+ 43: 	queue_free()
+ 44: 
+ 45: func _physics_process(delta: float) -> void:
+ 46: 	if _reached_house or hp <= 0:
+ 47: 		return
+ 48: 
+ 49: 	# Busca comida solo si no está comiendo.
+ 50: 	if not _eating:
+ 51: 		_target = _find_plant_ahead()
+ 52: 		if _target != null:
+ 53: 			_eating = true
+ 54: 			_bite_timer = BITE_INTERVAL
+ 55: 
+ 56: 	if _eating:
+ 57: 		# La planta puede haber muerto mientras comía.
+ 58: 		if _target == null or not is_instance_valid(_target) or _target.hp <= 0:
+ 59: 			_eating = false
+ 60: 			_target = null
+ 61: 		else:
+ 62: 			_position_beside_plant()
+ 63: 			_bite_timer -= delta
+ 64: 			if _bite_timer <= 0.0:
+ 65: 				_bite_timer = BITE_INTERVAL
+ 66: 				_target.take_damage(BITE_DAMAGE)
+ 67: 	else:
+ 68: 		# Camina hacia la casa.
+ 69: 		global_position.x -= WALK_SPEED
+ 70: 		if global_position.x <= HOUSE_X:
+ 71: 			_reached_house = true
+ 72: 			EventBus.zombie_reached_house.emit(self)
+ 73: 			queue_free()
+ 74: 
+ 75: ## El zombie se pega a la planta que está comiendo (evita solaparse).
+ 76: func _position_beside_plant() -> void:
+ 77: 	var offset := 30.0
+ 78: 	var desired := _target.global_position.x + offset
+ 79: 	if global_position.x > desired:
+ 80: 		global_position.x = move_toward(global_position.x, desired, WALK_SPEED * 2.5)
+ 81: 
+ 82: ## Planta más cercana a la izquierda en este carril (dentro del alcance).
+ 83: func _find_plant_ahead() -> Plant:
+ 84: 	for plant in get_tree().get_nodes_in_group("plants"):
+ 85: 		if not is_instance_valid(plant):
+ 86: 			continue
+ 87: 		if not plant is Plant:
+ 88: 			continue
+ 89: 		if plant.row != row:
+ 90: 			continue
+ 91: 		var px := plant.global_position.x
+ 92: 		if px >= global_position.x:  # la planta debe estar enfrente (izq.)
+ 93: 			continue
+ 94: 		if global_position.x - px > BITE_RANGE:
+ 95: 			continue
+ 96: 		return plant as Plant
+ 97: 	return null
+ 98: 
+ 99: ## Placeholder visual: zombie gris/verde mirando a la izquierda.
+100: func _draw() -> void:
+101: 	var skin := Color(0.35, 0.5, 0.3)
+102: 	var dark := Color(0.22, 0.32, 0.2)
+103: 
+104: 	# Cabeza.
+105: 	draw_circle(Vector2(0, -10), 14.0, skin)
+106: 
+107: 	# Cuerpo.
+108: 	draw_rect(Rect2(-10, -2, 20, 30), skin)
+109: 
+110: 	# Brazo estirado hacia la izquierda (zombie hambriento).
+111: 	draw_rect(Rect2(-26, 2, 18, 7), skin)
+112: 
+113: 	# Ojos (mirando a la izquierda).
+114: 	draw_circle(Vector2(-5, -13), 3.2, Color(1, 0.7, 0.3))
+115: 	draw_circle(Vector2(4, -13), 3.2, Color(1, 0.7, 0.3))
+116: 	draw_circle(Vector2(-5, -13), 1.5, Color.BLACK)
+117: 	draw_circle(Vector2(4, -13), 1.5, Color.BLACK)
+118: 
+119: 	# Sombrero pequeño de zombie.
+120: 	draw_rect(Rect2(-8, -26, 16, 5), dark)
+========================================
+
+=== ui\hud.gd ===
+  1: extends Control
+  2: 
+  3: ## HUD — Interfaz superior de la partida (Fase 2).
+  4: ##
+  5: ## Por ahora solo el contador de sol (empezando en 50). En la Fase 3 se
+  6: ## añadirá aquí la barra de semillas.
+  7: 
+  8: @onready var sun_label: Label = %SunLabel
+  9: 
+ 10: func _ready() -> void:
+ 11: 	EventBus.sun_changed.connect(_on_sun_changed)
+ 12: 	_on_sun_changed(SunBank.amount)
+ 13: 
+ 14: func _on_sun_changed(total: int) -> void:
+ 15: 	sun_label.text = str(total)
+========================================
+
+=== ui\seed_bar.gd ===
+  1: extends HBoxContainer
+  2: 
+  3: ## SeedBar — Barra de semillas del HUD (Fase 3).
+  4: ##
+  5: ## Crea una ranura (SeedSlot) por semilla registrada en PlantLibrary y
+  6: ## gestiona la selección: solo una activa a la vez, con deselección al
+  7: ## volver a pulsar la misma ranura o al pulsar clic derecho.
+  8: ##
+  9: ## Flujo de siembra: la selección se publica por EventBus.seed_selected;
+ 10: ## el Main escucha y planta al hacer clic en una celda válida. Los slots
+ 11: ## se refrescan al cambiar el sol (para el estado "sin sol").
+ 12: 
+ 13: signal seed_deselected
+ 14: 
+ 15: ## Orden de presentación de las semillas en la barra.
+ 16: const SEED_ORDER: Array[StringName] = [&"sunflower", &"peashooter", &"wallnut"]
+ 17: 
+ 18: ## seed_id -> SeedSlot
+ 19: var slots: Dictionary = {}
+ 20: 
+ 21: var _current_seed: StringName = &""
+ 22: var _prev_sun: int = -9999
+ 23: 
+ 24: func _ready() -> void:
+ 25: 	_build_slots()
+ 26: 	EventBus.sun_changed.connect(_on_sun_changed)
+ 27: 	EventBus.cell_clicked.connect(_on_cell_clicked)
+ 28: 
+ 29: func _build_slots() -> void:
+ 30: 	var slot_scene := preload("res://ui/seed_slot.tscn")
+ 31: 	for seed_id: StringName in SEED_ORDER:
+ 32: 		if not PlantLibrary.has_seed(seed_id):
+ 33: 			continue
+ 34: 		var slot: SeedSlot = slot_scene.instantiate()
+ 35: 		slot.setup(seed_id)
+ 36: 		slot.slot_pressed.connect(_on_slot_pressed)
+ 37: 		add_child(slot)
+ 38: 		slots[seed_id] = slot
+ 39: 
+ 40: ## Semilla actualmente seleccionada, o &"" si ninguna.
+ 41: func current_seed() -> StringName:
+ 42: 	return _current_seed
+ 43: 
+ 44: ## Intenta seleccionar/deseleccionar una semilla.
+ 45: func select_seed(seed_id: StringName) -> void:
+ 46: 	if _current_seed == seed_id:
+ 47: 		_clear_selection()
+ 48: 		return
+ 49: 	_select(seed_id)
+ 50: 
+ 51: func _on_slot_pressed(seed_id: StringName) -> void:
+ 52: 	select_seed(seed_id)
+ 53: 
+ 54: ## Tras sembrar, se vacía la selección (una planta por clic).
+ 55: func clear_selection() -> void:
+ 56: 	_clear_selection()
+ 57: 
+ 58: ## Pone en cooldown la ranura `seed_id` (lo llama Main al plantar).
+ 59: func start_cooldown(seed_id: StringName) -> void:
+ 60: 	var slot: SeedSlot = slots.get(seed_id)
+ 61: 	if slot:
+ 62: 		slot.start_cooldown()
+ 63: 	_refresh_slots()
+ 64: 
+ 65: func _select(seed_id: StringName) -> void:
+ 66: 	for key: StringName in slots:
+ 67: 		var slot: SeedSlot = slots[key]
+ 68: 		slot.set_selected(key == seed_id)
+ 69: 	_current_seed = seed_id
+ 70: 	EventBus.seed_selected.emit(seed_id)
+ 71: 
+ 72: func _clear_selection() -> void:
+ 73: 	_current_seed = &""
+ 74: 	for key: StringName in slots:
+ 75: 		slots[key].set_selected(false)
+ 76: 	seed_deselected.emit()
+ 77: 	# El Board se entera de que ya no hay semilla pendiente (limpia previews).
+ 78: 	EventBus.seed_selected.emit(&"")
+ 79: 
+ 80: ## Si había una semilla y se clica una celda, la siembra la gestiona Main
+ 81: ## (que escucha cell_clicked). Aquí solo refrescamos estados.
+ 82: func _on_cell_clicked(_col: int, _row: int) -> void:
+ 83: 	_refresh_slots()
+ 84: 
+ 85: ## Actualiza el estado "sin sol" de cada ranura.
+ 86: func _on_sun_changed(total: int) -> void:
+ 87: 	# Evitar redibujar en cada cambio si el total no varía.
+ 88: 	if total == _prev_sun:
+ 89: 		return
+ 90: 	_prev_sun = total
+ 91: 	_refresh_slots()
+ 92: 
+ 93: func _refresh_slots() -> void:
+ 94: 	for key: StringName in slots:
+ 95: 		slots[key].refresh()
+ 96: 
+ 97: func _unhandled_input(event: InputEvent) -> void:
+ 98: 	# Clic derecho cancela la selección.
+ 99: 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
+100: 		if _current_seed != &"":
+101: 			_clear_selection()
+102: 			get_viewport().set_input_as_handled()
+========================================
+
+=== ui\seed_slot.gd ===
+  1: extends Button
+  2: 
+  3: ## SeedSlot — Ranura de semilla de la SeedBar (Fase 3).
+  4: ##
+  5: ## Muestra el nombre y el costo de la semilla, y durante el cooldown dibuja
+  6: ## una cortina gris que se vacía junto con los segundos restantes.
+  7: ## El templado de la ranura lo hace la SeedBar vía `setup()`.
+  8: ##
+  9: ## Estados visuales:
+ 10: ##   - Normal: fondo verde botánico + texto claro.
+ 11: ##   - Sin sol: fondo gris verdoso + costo en rojo (no clicable).
+ 12: ##   - Cooldown: cortina gris que baja + icono de recarga + tiempo restante.
+ 13: ##   - Seleccionada: fondo amarillo (la SeedBar la marca con set_selected()).
+ 14: 
+ 15: signal slot_pressed(seed_id: StringName)
+ 16: 
+ 17: const COLOR_BG := Color(0.22, 0.42, 0.2, 0.95)
+ 18: const COLOR_BG_LOW_SUN := Color(0.3, 0.34, 0.28, 0.95)
+ 19: const COLOR_BG_SELECTED := Color(0.85, 0.8, 0.35, 1.0)
+ 20: const COLOR_BORDER := Color(0.12, 0.25, 0.11, 1.0)
+ 21: const COLOR_TEXT := Color(1, 1, 1, 1)
+ 22: const COLOR_COST_OK := Color(1, 0.95, 0.6, 1)
+ 23: const COLOR_COST_LOW := Color(1, 0.45, 0.35, 1)
+ 24: const COLOR_COOLDOWN := Color(0.06, 0.1, 0.06, 0.8)
+ 25: 
+ 26: const FONT_SIZE_NAME := 14
+ 27: const FONT_SIZE_COST := 13
+ 28: 
+ 29: var seed_id: StringName = &""
+ 30: var data: PlantData
+ 31: var is_selected: bool = false
+ 32: 
+ 33: var _cooldown_left: float = 0.0
+ 34: 
+ 35: func setup(p_seed_id: StringName) -> void:
+ 36: 	seed_id = p_seed_id
+ 37: 	data = PlantLibrary.get_data(seed_id)
+ 38: 	if data:
+ 39: 		tooltip_text = "%s — %d☀ · recarga %.1fs" % [data.display_name, data.cost, data.cooldown]
+ 40: 
+ 41: func _ready() -> void:
+ 42: 	custom_minimum_size = Vector2(132, 84)
+ 43: 	mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+ 44: 	pressed.connect(_on_pressed)
+ 45: 	_refresh_visual()
+ 46: 
+ 47: ## Inicia el cooldown de esta ranura.
+ 48: func start_cooldown() -> void:
+ 49: 	_cooldown_left = data.cooldown if data else 0.0
+ 50: 	_refresh_visual()
+ 51: 
+ 52: func _process(delta: float) -> void:
+ 53: 	if _cooldown_left > 0.0:
+ 54: 		var prev := _cooldown_left
+ 55: 		_cooldown_left = maxf(0.0, _cooldown_left - delta)
+ 56: 		if int(prev * 10.0) != int(_cooldown_left * 10.0) or _cooldown_left <= 0.0:
+ 57: 			queue_redraw()
+ 58: 		# Al terminar el cooldown se rehabilita (puede que ya haya sol).
+ 59: 		if _cooldown_left <= 0.0:
+ 60: 			_refresh_visual()
+ 61: 
+ 62: func is_on_cooldown() -> bool:
+ 63: 	return _cooldown_left > 0.0
+ 64: 
+ 65: func can_afford() -> bool:
+ 66: 	return data != null and SunBank.can_afford(data.cost)
+ 67: 
+ 68: ## La SeedBar marca/desmarca la selección activa.
+ 69: func set_selected(selected: bool) -> void:
+ 70: 	is_selected = selected
+ 71: 	queue_redraw()
+ 72: 
+ 73: func _on_pressed() -> void:
+ 74: 	if is_on_cooldown():
+ 75: 		return
+ 76: 	slot_pressed.emit(seed_id)
+ 77: 
+ 78: ## Recalcula el estado habilitado/deshabilitado (la SeedBar lo llama
+ 79: ## cuando cambia el sol o tras sembrar).
+ 80: func refresh() -> void:
+ 81: 	_refresh_visual()
+ 82: 
+ 83: ## Botón habilitado solo cuando la semilla está lista y hay sol.
+ 84: func _refresh_visual() -> void:
+ 85: 	var ready: bool = not is_on_cooldown() and can_afford()
+ 86: 	if disabled != not ready:
+ 87: 		disabled = not ready
+ 88: 	queue_redraw()
+ 89: 
+ 90: func _notification(what: int) -> void:
+ 91: 	if what == NOTIFICATION_THEME_CHANGED:
+ 92: 		_refresh_visual()
+ 93: 
+ 94: func _draw() -> void:
+ 95: 	var rect := Rect2(Vector2.ZERO, size)
+ 96: 
+ 97: 	# Fondo según estado.
+ 98: 	var bg := COLOR_BG
+ 99: 	if is_selected:
+100: 		bg = COLOR_BG_SELECTED
+101: 	elif is_on_cooldown():
+102: 		bg = COLOR_BG.darkened(0.3)
+103: 	elif not can_afford():
+104: 		bg = COLOR_BG_LOW_SUN
+105: 
+106: 	var box := StyleBoxFlat.new()
+107: 	box.bg_color = bg
+108: 	box.corner_radius_top_left = 8
+109: 	box.corner_radius_top_right = 8
+110: 	box.corner_radius_bottom_right = 8
+111: 	box.corner_radius_bottom_left = 8
+112: 	draw_style_box(box, rect)
+113: 	draw_rect(rect.grow(-1.0), COLOR_BORDER, false, 2.0)
+114: 
+115: 	if data == null:
+116: 		draw_string(ThemeDB.fallback_font, Vector2(8, 32), "—", HORIZONTAL_ALIGNMENT_LEFT, -1, FONT_SIZE_NAME, COLOR_TEXT)
+117: 		return
+118: 
+119: 	# Texto: nombre arriba, costo abajo.
+120: 	draw_string(ThemeDB.fallback_font, Vector2(8, 22), data.display_name, HORIZONTAL_ALIGNMENT_LEFT, -1, FONT_SIZE_NAME, COLOR_TEXT)
+121: 	var cost_color := COLOR_COST_OK if can_afford() else COLOR_COST_LOW
+122: 	draw_string(ThemeDB.fallback_font, Vector2(8, 42), "%d☀" % data.cost, HORIZONTAL_ALIGNMENT_LEFT, -1, FONT_SIZE_COST, cost_color)
+123: 
+124: 	# Cooldown: cortina gris + icono de recarga + segundos restantes.
+125: 	if is_on_cooldown() and data:
+126: 		var fraction := clampf(_cooldown_left / data.cooldown, 0.0, 1.0)
+127: 		var cover := Rect2(0.0, size.y * (1.0 - fraction), size.x, size.y * fraction)
+128: 		draw_rect(cover, COLOR_COOLDOWN)
+129: 
+130: 		var cx := size.x * 0.5
+131: 		var cy := size.y * 0.58
+132: 		var r := 15.0
+133: 		# Flecha circular de recarga (arco + punta de flecha).
+134: 		draw_arc(Vector2(cx, cy), r, -0.4, 4.6, 16, Color(1, 1, 1, 0.95), 2.2)
+135: 		var angle := 4.6
+136: 		var tip := Vector2(cx, cy) + Vector2.from_angle(angle - 0.65) * r
+137: 		var perp := Vector2.from_angle(angle + TAU / 4.0)
+138: 		draw_triangle(tip, tip - perp * 4.5, tip + perp * 4.5, Color(1, 1, 1, 0.95))
+139: 
+140: 		draw_string(ThemeDB.fallback_font, Vector2(4, size.y - 6.0), "%.1f s" % _cooldown_left,
+141: 				HORIZONTAL_ALIGNMENT_CENTER, size.x - 8.0, 12, Color(1, 1, 1, 0.95))
+142: 
+143: func draw_triangle(a: Vector2, b: Vector2, c: Vector2, color: Color) -> void:
+144: 	var pts := PackedVector2Array([a, b, c])
+145: 	draw_colored_polygon(pts, color)
+========================================
+
+=== ui\sun_icon.gd ===
+  1: extends Control
+  2: 
+  3: ## SunIcon — Mini sol decorativo para el contador del HUD (Fase 2).
+  4: 
+  5: const COLOR_CORE := Color(1.0, 0.95, 0.55)
+  6: const COLOR_BODY := Color(1.0, 0.88, 0.2)
+  7: const COLOR_RAY := Color(1.0, 0.8, 0.15)
+  8: 
+  9: func _ready() -> void:
+ 10: 	mouse_filter = Control.MOUSE_FILTER_IGNORE
+ 11: 	queue_redraw()
+ 12: 
+ 13: func _draw() -> void:
+ 14: 	var center := size / 2.0
+ 15: 	var r := minf(size.x, size.y) / 2.0
+ 16: 	draw_circle(center, r * 0.72, COLOR_BODY)
+ 17: 	draw_circle(center, r * 0.4, COLOR_CORE)
+ 18: 	for i in 8:
+ 19: 		var dir := Vector2.from_angle(TAU * i / 8.0)
+ 20: 		draw_circle(center + dir * r, r * 0.24, COLOR_RAY)
+========================================
+
+
+
+
+--- Writing content to file at Thu Aug 20 15:43:41 2026 ---
+> C:\Users\cesar\Desktop\games\demos - copia\GodotProjects\01_Prototypes\plantas-vs-zombie-vtemmu\inspect_tscns.py
+
+-------- 
+import glob
+
+tscn_files = glob.glob('**/*.tscn', recursive=True)
+for f in sorted(tscn_files):
+    print(f"=== {f} ===")
+    with open(f, 'r', encoding='utf-8') as fp:
+        lines = fp.readlines()
+        for line in lines:
+            if 'node name=' in line or 'ext_resource' in line or 'script =' in line or 'unique_name_in_owner' in line:
+                print('  ' + line.strip())
+    print()
+
+--------
+
+--- Executing blocking command at Thu Aug 20 15:43:43 2026 ---
+> call "C:\Users\cesar\.eigent\user_44515\spaces\space_8e5e3603b21a406c9ac3a99c44ea3db6\projects\1787092767435-2373\runs\1787262132532-7025\single_agent\.venv\Scripts\activate.bat" && python inspect_tscns.py
+--- Output ---
+=== scenes\board\board.tscn ===
+  [ext_resource type="Script" path="res://scenes/board/board.gd" id="1_board"]
+  [node name="Board" type="Node2D"]
+  script = ExtResource("1_board")
+
+=== scenes\board\cell.tscn ===
+  [ext_resource type="Script" path="res://scenes/board/cell.gd" id="1_cell"]
+  [node name="Cell" type="Area2D"]
+  script = ExtResource("1_cell")
+  [node name="Base" type="ColorRect" parent="."]
+  [node name="Highlight" type="ColorRect" parent="."]
+
+=== scenes\main\main.tscn ===
+  [ext_resource type="Script" path="res://scenes/main/main.gd" id="1_main"]
+  [ext_resource type="PackedScene" path="res://scenes/board/board.tscn" id="2_board"]
+  [ext_resource type="PackedScene" path="res://ui/hud.tscn" id="3_hud"]
+  [ext_resource type="Script" path="res://scenes/sun/sun_spawner.gd" id="4_sunspawner"]
+  [node name="Main" type="Node2D"]
+  script = ExtResource("1_main")
+  [node name="Backdrop" type="ColorRect" parent="."]
+  [node name="Board" parent="." instance=ExtResource("2_board")]
+  [node name="SunLayer" type="Node2D" parent="."]
+  script = ExtResource("4_sunspawner")
+  [node name="SpawnTimer" type="Timer" parent="SunLayer"]
+  [node name="Entities" type="Node2D" parent="."]
+  [node name="UI" type="CanvasLayer" parent="."]
+  [node name="HUD" parent="UI" instance=ExtResource("3_hud")]
+  [node name="DebugPanel" type="PanelContainer" parent="UI"]
+  [node name="FpsLabel" type="Label" parent="UI/DebugPanel"]
+  unique_name_in_owner = true
+
+=== scenes\plants\peashooter.tscn ===
+  [ext_resource type="Script" path="res://scenes/plants/peashooter.gd" id="1_peashooter"]
+  [ext_resource type="Resource" path="res://data/plant_data/peashooter.tres" id="2_data"]
+  [node name="Peashooter" type="Node2D"]
+  script = ExtResource("1_peashooter")
+
+=== scenes\plants\sunflower.tscn ===
+  [ext_resource type="Script" path="res://scenes/plants/sunflower.gd" id="1_sunflower"]
+  [ext_resource type="Resource" path="res://data/plant_data/sunflower.tres" id="2_data"]
+  [node name="Sunflower" type="Node2D"]
+  script = ExtResource("1_sunflower")
+
+=== scenes\plants\wallnut.tscn ===
+  [ext_resource type="Script" path="res://scenes/plants/wallnut.gd" id="1_wallnut"]
+  [ext_resource type="Resource" path="res://data/plant_data/wallnut.tres" id="2_data"]
+  [node name="Wallnut" type="Node2D"]
+  script = ExtResource("1_wallnut")
+
+=== scenes\projectiles\pea.tscn ===
+  [ext_resource type="Script" path="res://scenes/projectiles/pea.gd" id="1_pea"]
+  [node name="Pea" type="Area2D"]
+  script = ExtResource("1_pea")
+
+=== scenes\sun\sun.tscn ===
+  [ext_resource type="Script" path="res://scenes/sun/sun.gd" id="1_sun"]
+  [node name="Sun" type="Area2D"]
+  script = ExtResource("1_sun")
+  [node name="HitShape" type="CollisionShape2D" parent="."]
+
+=== scenes\zombies\zombie.tscn ===
+  [ext_resource type="Script" path="res://scenes/zombies/zombie.gd" id="1_zombie"]
+  [node name="Zombie" type="CharacterBody2D"]
+  script = ExtResource("1_zombie")
+
+=== ui\hud.tscn ===
+  [ext_resource type="Script" path="res://ui/hud.gd" id="1_hud"]
+  [ext_resource type="Script" path="res://ui/sun_icon.gd" id="2_icon"]
+  [ext_resource type="PackedScene" path="res://ui/seed_bar.tscn" id="3_seedbar"]
+  [node name="HUD" type="Control"]
+  script = ExtResource("1_hud")
+  [node name="SunPanel" type="PanelContainer" parent="."]
+  [node name="HBox" type="HBoxContainer" parent="SunPanel"]
+  [node name="SunIcon" type="Control" parent="SunPanel/HBox"]
+  script = ExtResource("2_icon")
+  [node name="SunLabel" type="Label" parent="SunPanel/HBox"]
+  unique_name_in_owner = true
+  [node name="SunAnchor" type="Node2D" parent="."]
+  [node name="SeedBar" parent="." instance=ExtResource("3_seedbar")]
+
+=== ui\seed_bar.tscn ===
+  [ext_resource type="Script" path="res://ui/seed_bar.gd" id="1_seedbar"]
+  [node name="SeedBar" type="HBoxContainer"]
+  script = ExtResource("1_seedbar")
+
+=== ui\seed_slot.tscn ===
+  [ext_resource type="Script" path="res://ui/seed_slot.gd" id="1_slot"]
+  [node name="SeedSlot" type="Button"]
+  script = ExtResource("1_slot")
+
+
+
+
+--- Writing content to file at Thu Aug 20 15:43:51 2026 ---
+> C:\Users\cesar\Desktop\games\demos - copia\GodotProjects\01_Prototypes\plantas-vs-zombie-vtemmu\autoload\event_bus.gd
+
+-------- 
+extends Node
+
+## EventBus — Señales globales del juego.
+##
+## Todos los sistemas se comunican a través de señales aquí definidas para
+## mantenerse desacoplados entre sí (regla de diseño del proyecto, ver docs/hoja_de_ruta_mvp.md).
+
+# ── Economía ────────────────────────────────────────────────────────────────
+signal sun_changed(total: int)
+signal sun_spent(amount: int)
+signal sun_collected(amount: int)
+signal sun_dropped(sun: Node2D)
+
+# ── Tablero / Siembra ───────────────────────────────────────────────────────
+signal cell_clicked(col: int, row: int)
+signal seed_selected(seed_id: StringName)
+signal plant_planted(plant: Node2D, col: int, row: int)
+
+# ── Combate ─────────────────────────────────────────────────────────────────
+signal zombie_spawned(zombie: Node2D, row: int)
+signal zombie_died(zombie: Node2D)
+signal zombie_reached_house(zombie: Node2D)
+signal plant_damaged(plant: Node2D, amount: int)
+signal plant_destroyed(plant: Node2D)
+signal zombie_damaged(zombie: Node2D, amount: int)
+
+# ── Partida ─────────────────────────────────────────────────────────────────
+signal wave_started(wave_number: int)
+signal wave_cleared(wave_number: int)
+signal game_won()
+signal game_lost()
+signal game_paused(paused: bool)
+
+## Reenvía cualquier señal con un prefijo, útil para debug:
+##   EventBus.debug_forward("wave_started", wave_number)
+func debug_forward(signal_name: String, args: Array = []) -> void:
+	var call_args: Array = [signal_name]
+	call_args.append_array(args)
+	emit_signal.callv(call_args)
+
+--------
+
+--- Writing content to file at Thu Aug 20 15:44:03 2026 ---
+> C:\Users\cesar\Desktop\games\demos - copia\GodotProjects\01_Prototypes\plantas-vs-zombie-vtemmu\scenes\zombies\zombie.gd
+
+-------- 
+class_name Zombie
+extends CharacterBody2D
+
+## Zombie — 🧟 Zombie básico (Fase 5).
+##
+## Camina por su carril de derecha a izquierda. Si encuentra una planta en
+## su celda la muerde (100 daño / 0.5 s) hasta destruirla y luego sigue.
+## Si llega al borde izquierdo (la casa), emite zombie_reached_house.
+##
+## Números configurados por export (balance inicial, sección 5 de la hoja).
+
+const WALK_SPEED := 7.0           # píxeles/segundo (lento, "shambling")
+const HOUSE_X := 68.0             # borde izquierdo = la casa
+const BITE_DAMAGE := 100
+const BITE_INTERVAL := 0.5        # segundos entre mordidas
+const BITE_RANGE := 50.0          # píxeles a la izquierda donde muerde
+
+var hp: int = 200
+var row: int = 0
+
+var _eating: bool = false
+var _bite_timer: float = 0.0
+var _target: Plant = null
+var _reached_house: bool = false
+
+func _ready() -> void:
+	EventBus.zombie_spawned.emit(self, row)
+
+## Registra la fila en la que camina (la pone Main al instanciarlo).
+func setup(p_row: int) -> void:
+	row = p_row
+
+func take_damage(amount: int) -> void:
+	if hp <= 0:
+		return
+	hp = maxi(0, hp - amount)
+	EventBus.zombie_damaged.emit(self, amount)
+	if hp == 0:
+		_die()
+
+func _die() -> void:
+	EventBus.zombie_died.emit(self)
+	queue_free()
+
+func _physics_process(delta: float) -> void:
+	if _reached_house or hp <= 0:
+		return
+
+	# Busca comida solo si no está comiendo.
+	if not _eating:
+		_target = _find_plant_ahead()
+		if _target != null:
+			_eating = true
+			_bite_timer = BITE_INTERVAL
+
+	if _eating:
+		# La planta puede haber muerto mientras comía.
+		if _target == null or not is_instance_valid(_target) or _target.hp <= 0:
+			_eating = false
+			_target = null
+		else:
+			_position_beside_plant()
+			_bite_timer -= delta
+			if _bite_timer <= 0.0:
+				_bite_timer = BITE_INTERVAL
+				_target.take_damage(BITE_DAMAGE)
+	else:
+		# Camina hacia la casa.
+		global_position.x -= WALK_SPEED
+		if global_position.x <= HOUSE_X:
+			_reached_house = true
+			EventBus.zombie_reached_house.emit(self)
+			queue_free()
+
+## El zombie se pega a la planta que está comiendo (evita solaparse).
+func _position_beside_plant() -> void:
+	var offset := 30.0
+	var desired := _target.global_position.x + offset
+	if global_position.x > desired:
+		global_position.x = move_toward(global_position.x, desired, WALK_SPEED * 2.5)
+
+## Planta más cercana a la izquierda en este carril (dentro del alcance).
+func _find_plant_ahead() -> Plant:
+	for node in get_tree().get_nodes_in_group("plants"):
+		if not is_instance_valid(node) or not node is Plant:
+			continue
+		var plant: Plant = node as Plant
+		if plant.row != row:
+			continue
+		var px: float = plant.global_position.x
+		if px >= global_position.x:  # la planta debe estar enfrente (izq.)
+			continue
+		if global_position.x - px > BITE_RANGE:
+			continue
+		return plant
+	return null
+
+## Placeholder visual: zombie gris/verde mirando a la izquierda.
+func _draw() -> void:
+	var skin := Color(0.35, 0.5, 0.3)
+	var dark := Color(0.22, 0.32, 0.2)
+
+	# Cabeza.
+	draw_circle(Vector2(0, -10), 14.0, skin)
+
+	# Cuerpo.
+	draw_rect(Rect2(-10, -2, 20, 30), skin)
+
+	# Brazo estirado hacia la izquierda (zombie hambriento).
+	draw_rect(Rect2(-26, 2, 18, 7), skin)
+
+	# Ojos (mirando a la izquierda).
+	draw_circle(Vector2(-5, -13), 3.2, Color(1, 0.7, 0.3))
+	draw_circle(Vector2(4, -13), 3.2, Color(1, 0.7, 0.3))
+	draw_circle(Vector2(-5, -13), 1.5, Color.BLACK)
+	draw_circle(Vector2(4, -13), 1.5, Color.BLACK)
+
+	# Sombrero pequeño de zombie.
+	draw_rect(Rect2(-8, -26, 16, 5), dark)
+
+--------
+
+--- Writing content to file at Thu Aug 20 15:44:23 2026 ---
+> C:\Users\cesar\Desktop\games\demos - copia\GodotProjects\01_Prototypes\plantas-vs-zombie-vtemmu\scenes\board\board.gd
+
+-------- 
+extends Node2D
+
+## Board — Grilla de juego 9 columnas × 5 filas (Fase 1).
+##
+## Genera las celdas (instancias de cell.tscn), las posiciona en el mundo y
+## mantiene el arreglo `cells[5][9]` que en fases posteriores guardará la
+## referencia a la planta ocupante o null.
+##
+## Coordenadas de celda:
+##   - col 0..8  (de izquierda a derecha)
+##   - row 0..4  (de arriba a abajo)
+##
+## Tamaños (constantes del MVP):
+##   - Celda: 80 x 100 px
+##   - Board completo: 720 x 500 px
+## El origen local (0,0) del Board coincide con su centro; el lado superior
+## izquierdo está en -BOARD_SIZE/2.
+
+signal cell_hovered(col: int, row: int)
+
+const CELL_SIZE := Vector2(80, 100)
+const COLS := 9
+const ROWS := 5
+const BOARD_SIZE := Vector2(CELL_SIZE.x * COLS, CELL_SIZE.y * ROWS)
+
+const CELL_SCENE := preload("res://scenes/board/cell.tscn")
+
+const COLOR_LAWN_A := Color(0.35, 0.75, 0.3, 1.0)
+const COLOR_LAWN_B := Color(0.42, 0.78, 0.36, 1.0)
+const COLOR_EDGE := Color(0.20, 0.45, 0.18, 1.0)
+
+## cells[row][col] -> Cell (referencia al nodo).
+var cells: Array = []
+
+## Semilla seleccionada (que está a la espera de click en una celda),
+## o &"" si no hay ninguna. Una planta por celda la valida `can_plant`.
+var pending_seed: StringName = &""
+
+func _ready() -> void:
+	_build_lawn_background()
+	_build_cells()
+	EventBus.cell_clicked.connect(_on_cell_clicked)
+	EventBus.seed_selected.connect(_on_seed_selected)
+	EventBus.plant_destroyed.connect(_on_plant_destroyed)
+	# Si cambia el saldo (p. ej. recoges sol), los previews se recalculan.
+	EventBus.sun_changed.connect(func(_total: int) -> void: _refresh_previews())
+
+## Devuelve el centro LOCAL de la celda (col, row) dentro del Board.
+func cell_center(col: int, row: int) -> Vector2:
+	var top_left := -BOARD_SIZE / 2.0
+	return top_left + Vector2(CELL_SIZE.x * (col + 0.5), CELL_SIZE.y * (row + 0.5))
+
+## Devuelve el centro GLOBAL (mundo) de la celda (col, row).
+## Útil para instanciar plantas/zombies dentro de otras escenas.
+func world_center(col: int, row: int) -> Vector2:
+	return to_global(cell_center(col, row))
+
+## ¿La coordenada (col, row) es válida dentro del board?
+func is_valid(col: int, row: int) -> bool:
+	return col >= 0 and col < COLS and row >= 0 and row < ROWS
+
+## La celda en (col, row) — null si fuera del tablero.
+func get_cell(col: int, row: int) -> Cell:
+	if not is_valid(col, row):
+		return null
+	return cells[row][col]
+
+## Convierte una posición del mundo a coordenadas de celda (col, row),
+## o (-1, -1) si está fuera del tablero. Útil para previews en fases posteriores.
+func world_to_cell(world_pos: Vector2) -> Vector2i:
+	var local := to_local(world_pos) + BOARD_SIZE / 2.0
+	var col := int(local.x / CELL_SIZE.x)
+	var row := int(local.y / CELL_SIZE.y)
+	if is_valid(col, row):
+		return Vector2i(col, row)
+	return Vector2i(-1, -1)
+
+## Planta que ocupa la celda (col, row), o null si está vacía.
+func plant_at(col: int, row: int) -> Plant:
+	var cell: Cell = get_cell(col, row)
+	if cell == null:
+		return null
+	return cell.plant
+
+## ¿Se puede plantar la semilla `seed_id` en esta celda?
+## (Existe la semilla, la celda es válida y está vacía, y hay sol.)
+func can_plant(seed_id: StringName, col: int, row: int) -> bool:
+	if seed_id == &"" or not PlantLibrary.has_seed(seed_id):
+		return false
+	if not is_valid(col, row):
+		return false
+	if plant_at(col, row) != null:
+		return false
+	return SunBank.can_afford(PlantLibrary.get_data(seed_id).cost)
+
+## Fase 3: instancia la planta de la semilla en la celda (col, row) y la
+## registra. Devuelve la planta creada o null si no se pudo.
+func plant(seed_id: StringName, col: int, row: int) -> Plant:
+	if not can_plant(seed_id, col, row):
+		return null
+	var scene: PackedScene = PlantLibrary.get_scene(seed_id)
+	if scene == null:
+		return null
+	var plant: Plant = scene.instantiate()
+	plant.setup(col, row)
+	plant.global_position = world_center(col, row)
+	# La añade al árbol ANTES de set_plant (los @onready de la planta corren).
+	get_tree().get_first_node_in_group("entities").add_child(plant)
+	_cell(col, row).set_plant(plant)
+	EventBus.plant_planted.emit(plant, col, row)
+	return plant
+
+## Registra la planta en su celda (público para que Main la inserte).
+func register_plant(plant: Plant) -> void:
+	var cell: Cell = get_cell(plant.col, plant.row)
+	if cell:
+		cell.set_plant(plant)
+
+func _cell(col: int, row: int) -> Cell:
+	return cells[row][col] if is_valid(col, row) else null
+
+func _on_seed_selected(seed_id: StringName) -> void:
+	pending_seed = seed_id
+	_refresh_previews()
+
+## Fase 3: al destruirse una planta se libera su celda.
+func _on_plant_destroyed(plant: Node) -> void:
+	if plant is Plant:
+		var cell: Cell = _cell(plant.col, plant.row)
+		if cell:
+			cell.clear_plant()
+
+## Pinta preview verde/rojo en TODAS las celdas según la semilla pendiente
+## (verde = se puede plantar, rojo = no se puede). Sin semilla, limpia.
+func _refresh_previews() -> void:
+	for row in ROWS:
+		for col in COLS:
+			var cell: Cell = _cell(col, row)
+			if pending_seed == &"":
+				cell.set_preview(Cell.Preview.NONE)
+			elif can_plant(pending_seed, col, row):
+				cell.set_preview(Cell.Preview.OK)
+			else:
+				cell.set_preview(Cell.Preview.BAD)
+
+func _build_lawn_background() -> void:
+	var top_left := -BOARD_SIZE / 2.0
+
+	# Relleno principal.
+	var lawn := ColorRect.new()
+	lawn.size = BOARD_SIZE
+	lawn.position = top_left
+	lawn.color = COLOR_LAWN_A
+	lawn.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(lawn)
+
+	# Filas alternas más claras (efecto césped rayado).
+	for row in ROWS:
+		if row % 2 == 0:
+			continue
+		var stripe := ColorRect.new()
+		stripe.size = Vector2(BOARD_SIZE.x, CELL_SIZE.y)
+		stripe.position = top_left + Vector2(0.0, row * CELL_SIZE.y)
+		stripe.color = COLOR_LAWN_B
+		stripe.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		add_child(stripe)
+
+	# Marco/borde (se dibuja detrás del césped).
+	var edge := 4.0
+	var frame := ColorRect.new()
+	frame.size = BOARD_SIZE + Vector2(edge * 2.0, edge * 2.0)
+	frame.position = top_left - Vector2(edge, edge)
+	frame.color = COLOR_EDGE
+	frame.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(frame)
+	frame.move_to_back()
+
+func _build_cells() -> void:
+	for row in ROWS:
+		var row_arr: Array = []
+		for col in COLS:
+			var cell: Cell = CELL_SCENE.instantiate()
+			cell.setup(col, row)
+			cell.position = cell_center(col, row)
+			add_child(cell)
+			row_arr.append(cell)
+		cells.append(row_arr)
+
+func _on_cell_clicked(col: int, row: int) -> void:
+	print("[Board] Celda clicada -> col=%d, fila=%d" % [col, row])
+
+	# Fase 3: si hay una semilla seleccionada, intenta plantarla.
+	if pending_seed != &"":
+		var planted: Plant = plant(pending_seed, col, row)
+		if planted != null:
+			print("[Board] Plantada '%s' en (%d,%d)" % [pending_seed, col, row])
+			# El Main (que escucha plant_planted) paga el sol y reinicia el
+			# cooldown de la ranura; aquí solo limpiamos el preview.
+			pending_seed = &""
+			_refresh_previews()
+		else:
+			print("[Board] No se pudo plantar '%s' en (%d,%d)" % [pending_seed, col, row])
+
+--------
+
+--- Writing content to file at Thu Aug 20 15:44:30 2026 ---
+> C:\Users\cesar\Desktop\games\demos - copia\GodotProjects\01_Prototypes\plantas-vs-zombie-vtemmu\scenes\projectiles\pea.gd
+
+-------- 
+class_name Pea
+extends Area2D
+
+## Pea — 🟢 Guisante (Fase 4).
+##
+## Viaja por su fila (misma `row` en la que se disparó) hacia la derecha.
+## Golpea al primer zombie de su carril que encuentre (detección por fila
+## + rango en X, según la decisión de la sección 6 de la hoja de ruta).
+##
+## Si atraviesa todo el tablero sin impactar, se elimina (se marca para
+## evitar doble impacto).
+
+const SPEED := 420.0        # píxeles/segundo hacia la derecha
+const KILL_X := 1350.0      # fuera del tablero (1280+)
+
+var row: int = 0
+var damage: int = 20
+var _dead: bool = false
+
+func setup(p_row: int, p_damage: int) -> void:
+	row = p_row
+	damage = p_damage
+
+func _process(delta: float) -> void:
+	if _dead:
+		return
+	global_position.x += SPEED * delta
+	_try_hit()
+	if not _dead and global_position.x > KILL_X:
+		queue_free()
+
+## Busca al zombie más cercano (menor X) en este carril y lo golpea.
+func _try_hit() -> void:
+	var best: Zombie = null
+	var best_x := INF
+	for node in get_tree().get_nodes_in_group("zombies"):
+		if not is_instance_valid(node) or not node is Zombie:
+			continue
+		var zombie: Zombie = node as Zombie
+		if zombie.row != row:
+			continue
+		var zx: float = zombie.global_position.x
+		if zx <= global_position.x:
+			continue
+		# El guisante impacta cuando su centro alcanza el cuerpo del zombie.
+		if zx - global_position.x > 26.0:
+			continue
+		if zx < best_x:
+			best_x = zx
+			best = zombie
+	if best != null:
+		_dead = true
+		best.take_damage(damage)
+		queue_free()
+
+## Placeholder visual: guisante verde.
+func _draw() -> void:
+	draw_circle(Vector2.ZERO, 7.0, Color(0.35, 0.8, 0.3))
+	draw_circle(Vector2(2.0, -2.0), 2.4, Color(0.6, 0.95, 0.5))
+
+--------
+
+--- Writing content to file at Thu Aug 20 15:44:47 2026 ---
+> C:\Users\cesar\Desktop\games\demos - copia\GodotProjects\01_Prototypes\plantas-vs-zombie-vtemmu\ui\seed_slot.gd
+
+-------- 
+class_name SeedSlot
+extends Button
+
+## SeedSlot — Ranura de semilla de la SeedBar (Fase 3).
+##
+## Muestra el nombre y el costo de la semilla, y durante el cooldown dibuja
+## una cortina gris que se vacía junto con los segundos restantes.
+## El templado de la ranura lo hace la SeedBar vía `setup()`.
+##
+## Estados visuales:
+##   - Normal: fondo verde botánico + texto claro.
+##   - Sin sol: fondo gris verdoso + costo en rojo (no clicable).
+##   - Cooldown: cortina gris que baja + icono de recarga + tiempo restante.
+##   - Seleccionada: fondo amarillo (la SeedBar la marca con set_selected()).
+
+signal slot_pressed(seed_id: StringName)
+
+const COLOR_BG := Color(0.22, 0.42, 0.2, 0.95)
+const COLOR_BG_LOW_SUN := Color(0.3, 0.34, 0.28, 0.95)
+const COLOR_BG_SELECTED := Color(0.85, 0.8, 0.35, 1.0)
+const COLOR_BORDER := Color(0.12, 0.25, 0.11, 1.0)
+const COLOR_TEXT := Color(1, 1, 1, 1)
+const COLOR_COST_OK := Color(1, 0.95, 0.6, 1)
+const COLOR_COST_LOW := Color(1, 0.45, 0.35, 1)
+const COLOR_COOLDOWN := Color(0.06, 0.1, 0.06, 0.8)
+
+const FONT_SIZE_NAME := 14
+const FONT_SIZE_COST := 13
+
+var seed_id: StringName = &""
+var data: PlantData
+var is_selected: bool = false
+
+var _cooldown_left: float = 0.0
+
+func setup(p_seed_id: StringName) -> void:
+	seed_id = p_seed_id
+	data = PlantLibrary.get_data(seed_id)
+	if data:
+		tooltip_text = "%s — %d☀ · recarga %.1fs" % [data.display_name, data.cost, data.cooldown]
+
+func _ready() -> void:
+	custom_minimum_size = Vector2(132, 84)
+	mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	pressed.connect(_on_pressed)
+	_refresh_visual()
+
+## Inicia el cooldown de esta ranura.
+func start_cooldown() -> void:
+	_cooldown_left = data.cooldown if data else 0.0
+	_refresh_visual()
+
+func _process(delta: float) -> void:
+	if _cooldown_left > 0.0:
+		var prev := _cooldown_left
+		_cooldown_left = maxf(0.0, _cooldown_left - delta)
+		if int(prev * 10.0) != int(_cooldown_left * 10.0) or _cooldown_left <= 0.0:
+			queue_redraw()
+		# Al terminar el cooldown se rehabilita (puede que ya haya sol).
+		if _cooldown_left <= 0.0:
+			_refresh_visual()
+
+func is_on_cooldown() -> bool:
+	return _cooldown_left > 0.0
+
+func can_afford() -> bool:
+	return data != null and SunBank.can_afford(data.cost)
+
+## La SeedBar marca/desmarca la selección activa.
+func set_selected(selected: bool) -> void:
+	is_selected = selected
+	queue_redraw()
+
+func _on_pressed() -> void:
+	if is_on_cooldown():
+		return
+	slot_pressed.emit(seed_id)
+
+## Recalcula el estado habilitado/deshabilitado (la SeedBar lo llama
+## cuando cambia el sol o tras sembrar).
+func refresh() -> void:
+	_refresh_visual()
+
+## Botón habilitado solo cuando la semilla está lista y hay sol.
+func _refresh_visual() -> void:
+	var ready: bool = not is_on_cooldown() and can_afford()
+	if disabled != not ready:
+		disabled = not ready
+	queue_redraw()
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_THEME_CHANGED:
+		_refresh_visual()
+
+func _draw() -> void:
+	var rect := Rect2(Vector2.ZERO, size)
+
+	# Fondo según estado.
+	var bg := COLOR_BG
+	if is_selected:
+		bg = COLOR_BG_SELECTED
+	elif is_on_cooldown():
+		bg = COLOR_BG.darkened(0.3)
+	elif not can_afford():
+		bg = COLOR_BG_LOW_SUN
+
+	var box := StyleBoxFlat.new()
+	box.bg_color = bg
+	box.corner_radius_top_left = 8
+	box.corner_radius_top_right = 8
+	box.corner_radius_bottom_right = 8
+	box.corner_radius_bottom_left = 8
+	draw_style_box(box, rect)
+	draw_rect(rect.grow(-1.0), COLOR_BORDER, false, 2.0)
+
+	if data == null:
+		draw_string(ThemeDB.fallback_font, Vector2(8, 32), "—", HORIZONTAL_ALIGNMENT_LEFT, -1, FONT_SIZE_NAME, COLOR_TEXT)
+		return
+
+	# Texto: nombre arriba, costo abajo.
+	draw_string(ThemeDB.fallback_font, Vector2(8, 22), data.display_name, HORIZONTAL_ALIGNMENT_LEFT, -1, FONT_SIZE_NAME, COLOR_TEXT)
+	var cost_color := COLOR_COST_OK if can_afford() else COLOR_COST_LOW
+	draw_string(ThemeDB.fallback_font, Vector2(8, 42), "%d☀" % data.cost, HORIZONTAL_ALIGNMENT_LEFT, -1, FONT_SIZE_COST, cost_color)
+
+	# Cooldown: cortina gris + icono de recarga + segundos restantes.
+	if is_on_cooldown() and data:
+		var fraction := clampf(_cooldown_left / data.cooldown, 0.0, 1.0)
+		var cover := Rect2(0.0, size.y * (1.0 - fraction), size.x, size.y * fraction)
+		draw_rect(cover, COLOR_COOLDOWN)
+
+		var cx := size.x * 0.5
+		var cy := size.y * 0.58
+		var r := 15.0
+		# Flecha circular de recarga (arco + punta de flecha).
+		draw_arc(Vector2(cx, cy), r, -0.4, 4.6, 16, Color(1, 1, 1, 0.95), 2.2)
+		var angle := 4.6
+		var tip := Vector2(cx, cy) + Vector2.from_angle(angle - 0.65) * r
+		var perp := Vector2.from_angle(angle + TAU / 4.0)
+		draw_triangle(tip, tip - perp * 4.5, tip + perp * 4.5, Color(1, 1, 1, 0.95))
+
+		draw_string(ThemeDB.fallback_font, Vector2(4, size.y - 6.0), "%.1f s" % _cooldown_left,
+				HORIZONTAL_ALIGNMENT_CENTER, size.x - 8.0, 12, Color(1, 1, 1, 0.95))
+
+func draw_triangle(a: Vector2, b: Vector2, c: Vector2, color: Color) -> void:
+	var pts := PackedVector2Array([a, b, c])
+	draw_colored_polygon(pts, color)
+
+--------
+
+--- Writing content to file at Thu Aug 20 15:44:59 2026 ---
+> C:\Users\cesar\Desktop\games\demos - copia\GodotProjects\01_Prototypes\plantas-vs-zombie-vtemmu\scenes\sun\sun.gd
+
+-------- 
+class_name Sun
+extends Area2D
+
+## Sun — ☀️ Sol del juego (Fase 2).
+##
+## Estados: FALLING (cae del cielo) -> GROUND (en el suelo, recogible) ->
+## COLLECTED (vuela al contador del HUD y suma a SunBank).
+## El girasol también lo usa: `pop_at()` lo hace aparecer ya en el suelo.
+
+enum State { FALLING, GROUND, COLLECTED }
+
+const VALUE := 25
+const GROUND_LIFETIME := 8.0
+
+const COLOR_CORE := Color(1.0, 0.95, 0.55)
+const COLOR_BODY := Color(1.0, 0.88, 0.2)
+const COLOR_RAY := Color(1.0, 0.8, 0.15)
+
+var state: State = State.FALLING
+var value: int = VALUE
+var _active_tween: Tween = null
+
+func _ready() -> void:
+	input_event.connect(_on_input_event)
+
+func _kill_active_tween() -> void:
+	if _active_tween and _active_tween.is_valid():
+		_active_tween.kill()
+	_active_tween = null
+
+## Cae desde `start_pos` hasta `target_pos` (lluvia del cielo).
+func fall_from(start_pos: Vector2, target_pos: Vector2, fall_time: float = 3.0) -> void:
+	state = State.FALLING
+	global_position = start_pos
+	modulate.a = 1.0
+	scale = Vector2.ONE
+	_kill_active_tween()
+	_active_tween = create_tween()
+	_active_tween.tween_property(self, "global_position", target_pos, fall_time) \
+		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	_active_tween.tween_callback(_land)
+
+## Aparece ya en el suelo con un pequeño rebote (sol del girasol).
+func pop_at(pos: Vector2) -> void:
+	state = State.GROUND
+	global_position = pos
+	modulate.a = 1.0
+	scale = Vector2.ZERO
+	_kill_active_tween()
+	_active_tween = create_tween()
+	_active_tween.tween_property(self, "scale", Vector2.ONE, 0.3) \
+		.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	_start_ground_lifetime()
+
+func _land() -> void:
+	if state != State.FALLING:
+		return
+	state = State.GROUND
+	_start_ground_lifetime()
+
+## Si nadie lo recoge, se desvanece y desaparece.
+func _start_ground_lifetime() -> void:
+	await get_tree().create_timer(GROUND_LIFETIME).timeout
+	if not is_instance_valid(self) or state != State.GROUND:
+		return
+	_kill_active_tween()
+	_active_tween = create_tween()
+	_active_tween.tween_property(self, "modulate:a", 0.0, 0.5)
+	_active_tween.tween_callback(queue_free)
+
+func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if state != State.GROUND:
+		return
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		_collect()
+
+func _collect() -> void:
+	if state == State.COLLECTED:
+		return
+	state = State.COLLECTED
+	_kill_active_tween()
+
+	# Vuela hacia el ancla del contador de sol del HUD.
+	var target := Vector2(118, 40)  # fallback si no hay ancla
+	var anchor := get_tree().get_first_node_in_group("sun_anchor")
+	if anchor:
+		target = anchor.get_global_transform_with_canvas().origin
+
+	_active_tween = create_tween()
+	_active_tween.set_parallel(true)
+	_active_tween.tween_property(self, "global_position", target, 0.3) \
+		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	_active_tween.tween_property(self, "scale", Vector2(0.35, 0.35), 0.3)
+	await _active_tween.finished
+	SunBank.add(value)
+	queue_free()
+
+## Placeholder visual: núcleo + cuerpo + 8 rayos.
+func _draw() -> void:
+	draw_circle(Vector2.ZERO, 18.0, COLOR_BODY)
+	draw_circle(Vector2.ZERO, 10.0, COLOR_CORE)
+	for i in 8:
+		var dir := Vector2.from_angle(TAU * i / 8.0)
+		draw_circle(dir * 24.0, 6.0, COLOR_RAY)
+
+--------
+
+--- Writing content to file at Thu Aug 20 15:45:06 2026 ---
+> C:\Users\cesar\Desktop\games\demos - copia\GodotProjects\01_Prototypes\plantas-vs-zombie-vtemmu\scenes\plants\peashooter.gd
+
+-------- 
+class_name Peashooter
+extends Plant
+
+## Peashooter — 🔫 Lanzaguisantes (Fase 4).
+##
+## Dispara un guisante por su fila cada `data.fire_interval` segundos,
+## pero SOLO si hay un zombie en su carril (evita disparar al vacío).
+## Si no hay objetivo deja de disparar hasta que aparezca uno.
+
+const PEA_SCENE := preload("res://scenes/projectiles/pea.tscn")
+
+var _timer: Timer
+
+func _ready() -> void:
+	_timer = Timer.new()
+	_timer.wait_time = data.fire_interval if data and data.fire_interval > 0.0 else 1.4
+	_timer.timeout.connect(_try_fire)
+	add_child(_timer)
+	_timer.start()
+
+func _try_fire() -> void:
+	if hp <= 0:
+		return
+	if _has_zombie_in_row():
+		_fire()
+
+func _has_zombie_in_row() -> bool:
+	for node in get_tree().get_nodes_in_group("zombies"):
+		if is_instance_valid(node) and node is Zombie:
+			var zombie: Zombie = node as Zombie
+			if zombie.row == row:
+				return true
+	return false
+
+func _fire() -> void:
+	var pea: Pea = PEA_SCENE.instantiate()
+	pea.setup(row, data.pea_damage if data else 20)
+	# Sale por la boca del tubo (a la derecha de la planta).
+	pea.global_position = global_position + Vector2(30, 0)
+	# Misma capa que el resto de entidades del tablero.
+	get_tree().get_first_node_in_group("entities").add_child(pea)
+
+## Placeholder visual: cuerpo + tubo hacia la derecha + ojo.
+func _draw() -> void:
+	var body_green := Color(0.28, 0.72, 0.3)
+	var tube_green := Color(0.18, 0.55, 0.22)
+
+	# Cuerpo.
+	draw_circle(Vector2.ZERO, 22.0, body_green)
+
+	# Tubo/boca hacia la derecha (dirección de disparo).
+	draw_rect(Rect2(10.0, -6.0, 22.0, 12.0), tube_green)
+
+	# Ojo (mira hacia la derecha).
+	draw_circle(Vector2(-8.0, -7.0), 5.5, Color.WHITE)
+	draw_circle(Vector2(-6.0, -7.0), 2.6, Color.BLACK)
+
+--------
+
+--- Executing blocking command at Thu Aug 20 15:45:09 2026 ---
+> call "C:\Users\cesar\.eigent\user_44515\spaces\space_8e5e3603b21a406c9ac3a99c44ea3db6\projects\1787092767435-2373\runs\1787262132532-7025\single_agent\.venv\Scripts\activate.bat" && del inspect_code.py inspect_all.py inspect_tscns.py
+--- Output ---
+
+
+
+--- Executing blocking command at Thu Aug 20 15:45:17 2026 ---
+> call "C:\Users\cesar\.eigent\user_44515\spaces\space_8e5e3603b21a406c9ac3a99c44ea3db6\projects\1787092767435-2373\runs\1787262132532-7025\single_agent\.venv\Scripts\activate.bat" && type todo.md
+--- Output ---
+# Todo
+
+- ✅ Inspect GDScript files for parse errors reported by Godot
+- ✅ Fix GDScript errors in event_bus, zombie, board, seed_bar, seed_slot, sun, pea, and peashooter
+- ✅ Verify all scripts in the project for syntactic and logical correctness
+- 🔄 Update documentation and report fixes to user
+
+
+

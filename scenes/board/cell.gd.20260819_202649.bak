@@ -1,0 +1,41 @@
+extends Area2D
+
+## Cell — Una celda de la grilla del Board (Fase 1).
+##
+## Detecta hover y clic, y emite por EventBus la coordenada (col, row).
+## El resaltado (verde/rojo) lo decidirá la lógica de siembra en la Fase 3;
+## aquí el hover solo pinta un brillo amarillo translúcido.
+##
+## OJO: `setup()` solo guarda valores (se llama ANTES de add_child, cuando
+## los @onready aún no existen). El pintado se aplica en _ready().
+
+@export var col: int = 0
+@export var row: int = 0
+
+@onready var _highlight: ColorRect = $Highlight
+@onready var _base: ColorRect = $Base
+
+const COLOR_A := Color(0.42, 0.78, 0.36, 1.0)  # verde claro
+const COLOR_B := Color(0.36, 0.70, 0.32, 1.0)  # verde oscuro (alterno por fila)
+const COLOR_HOVER := Color(1.0, 1.0, 0.6, 0.35) # amarillo translúcido
+
+## Captura los datos de la celda. NO tocar nodos aquí (aún no está en el árbol).
+func setup(p_col: int, p_row: int) -> void:
+	col = p_col
+	row = p_row
+
+func _ready() -> void:
+	_base.color = COLOR_A if row % 2 == 0 else COLOR_B
+	input_event.connect(_on_input_event)
+	mouse_entered.connect(_on_mouse_entered)
+	mouse_exited.connect(_on_mouse_exited)
+
+func _on_mouse_entered() -> void:
+	_highlight.color = COLOR_HOVER
+
+func _on_mouse_exited() -> void:
+	_highlight.color = Color.TRANSPARENT
+
+func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		EventBus.cell_clicked.emit(col, row)

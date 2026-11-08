@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid://dl9k7kpjxq1r9]
+
+[ext_resource type="Script" path="res://scenes/plants/repeater.gd" id="1_repeater"]
+
+[resource]
+script = ExtResource("1_repeater")
+data = ExtResource("1_data")
+
+[sub_resource type="Resource" id="1_data"]
+script_class = "PlantData"
+id = &"repeater"
+display_name = "Repetidor"
+cost = 200
+cooldown = 7.5
+max_hp = 300
+pea_damage = 20
+fire_interval = 1.4
+shots_per_attack = 2

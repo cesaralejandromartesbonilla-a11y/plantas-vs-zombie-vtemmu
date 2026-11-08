@@ -1,0 +1,42 @@
+[
+  {
+    "content": "Explorar estructura actual del proyecto",
+    "active_form": "Explorando estructura actual del proyecto",
+    "status": "completed"
+  },
+  {
+    "content": "Revisar archivos clave (main, board, plant, hud, sun_bank)",
+    "active_form": "Revisando archivos clave",
+    "status": "completed"
+  },
+  {
+    "content": "Fase 3: Barra de semillas + siembra + costos (ya en código)",
+    "active_form": "Verificando Fase 3",
+    "status": "completed"
+  },
+  {
+    "content": "Fase 4: Crear guisante (pea.gd/.tscn) con colisión por fila",
+    "active_form": "Creando guisante",
+    "status": "in_progress"
+  },
+  {
+    "content": "Fase 4: Lanzaguisantes dispara (peashooter.gd)",
+    "active_form": "Implementando disparo del lanzaguisantes",
+    "status": "pending"
+  },
+  {
+    "content": "Fase 4/5: Zombie básico (zombie.gd/.tscn) — camina, come, muere, casa",
+    "active_form": "Creando zombie básico",
+    "status": "pending"
+  },
+  {
+    "content": "Integrar en main.gd: zombie de prueba + hotkeys debug (Z/G/T)",
+    "active_form": "Integrando zombie de prueba y hotkeys",
+    "status": "pending"
+  },
+  {
+    "content": "Actualizar docs (hoja de ruta, todo.md)",
+    "active_form": "Actualizando documentación",
+    "status": "pending"
+  }
+]

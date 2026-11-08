@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scenes/plants/peashooter.gd" id="1_peashooter"]
+[ext_resource type="Resource" path="res://data/plant_data/peashooter.tres" id="2_data"]
+
+[node name="Peashooter" type="Node2D"]
+z_index = 2
+script = ExtResource("1_peashooter")
+data = ExtResource("2_data")

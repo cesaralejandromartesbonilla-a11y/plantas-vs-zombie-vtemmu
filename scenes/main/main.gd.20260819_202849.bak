@@ -1,0 +1,47 @@
+extends Node2D
+
+## Main — Raíz de la partida.
+##
+## Fase 2: Board (grilla 9x5) + lluvia de sol (SunLayer) + HUD con contador.
+## Fase 3: orquesta la siembra — al recibir `plant_planted` del Board paga
+## el sol y arranca el cooldown de la ranura correspondiente. El girasol de
+## prueba inicial (que llegó en la Fase 2) se registra en su celda.
+
+const SUNFLOWER_SCENE := preload("res://scenes/plants/sunflower.tscn")
+
+@onready var board: Node2D = $Board
+@onready var entities: Node2D = $Entities
+@onready var fps_label: Label = %FpsLabel
+@onready var seed_bar: HBoxContainer = %SeedBar
+
+func _ready() -> void:
+	# El girasol de prueba de la Fase 2 (ahora registrado como ocupante).
+	_spawn_test_sunflower()
+
+	EventBus.plant_planted.connect(_on_plant_planted)
+
+	seed_bar.clear_selection()
+
+func _process(_delta: float) -> void:
+	fps_label.text = "FPS: %d" % Engine.get_frames_per_second()
+
+## Fase 2: girasol de prueba en la celda (col=2, fila=2) para validar la
+## producción de sol sin esperar a la economía de siembra completa.
+func _spawn_test_sunflower() -> void:
+	var plant: Plant = SUNFLOWER_SCENE.instantiate()
+	plant.setup(2, 2)
+	plant.global_position = board.world_center(2, 2)
+	entities.add_child(plant)
+	board.register_plant(plant)
+
+## Fase 3: al plantarse una planta (lo hace el Board), pagamos el sol y
+## ponemos la ranura en cooldown.
+func _on_plant_planted(plant: Plant, _col: int, _row: int) -> void:
+	if plant == null or plant.data == null:
+		return
+	SunBank.spend(plant.data.cost)
+	print("[Main] Plantada %s — coste %d☀ (restante: %d☀)" % [plant.data.display_name, plant.data.cost, SunBank.amount])
+	# Reinicia la selección de la barra (si el jugador quiere re-sembrar,
+	# vuelve a pulsar la ranura cuando el cooldown termine).
+	seed_bar.clear_selection()
+	seed_bar.start_cooldown(plant.data.id)

@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://ui/menus/victory_screen.gd" id=1]
+
+[node name="VictoryScreen" type="Control" layout_mode=3 anchors_preset=15 anchor_right=1.0 anchor_bottom=1.0]
+script = ExtResource("1")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." layout_mode=3 anchors_preset=15 anchor_right=1.0 anchor_bottom=1.0 offset_left=-150.0 offset_top=-60.0 offset_right=150.0 offset_bottom=60.0]
+theme_overrides_constants/separation = 10
+
+[node name="Title" type="Label" parent="VBoxContainer"]
+text = "¡VICTORIA! 🌻"
+horizontal_alignment = 1
+theme_overrides_font_sizes/font_size = 48
+theme_overrides_colors/font_color = Color(0.2, 0.8, 0.3, 1)
+
+[node name="Subtitle" type="Label" parent="VBoxContainer"]
+text = "Has sobrevivido a todas las oleadas"
+horizontal_alignment = 1
+theme_overrides_font_sizes/font_size = 24
+theme_overrides_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+
+[node name="RetryBtn" type="Button" parent="VBoxContainer"]
+text = "Reintentar"
+theme_overrides_font_sizes/font_size = 28
+custom_minimum_size = Vector2(200, 60)

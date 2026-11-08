@@ -1,0 +1,80 @@
+class_name Cell
+extends Area2D
+
+## Cell — Una celda de la grilla del Board (Fase 1+3).
+##
+## Detecta hover y clic, y emite por EventBus la coordenada (col, row).
+## En la Fase 3 muestra el preview de siembra (verde = válida, rojo =
+## inválida) y guarda la referencia a la planta que la ocupa.
+##
+## OJO: `setup()` solo guarda valores (se llama ANTES de add_child, cuando
+## los @onready aún no existen). El pintado se aplica en _ready().
+
+## Modos de preview de siembra.
+enum Preview { NONE, OK, BAD }
+
+@export var col: int = 0
+@export var row: int = 0
+
+## Planta que ocupa la celda (null = libre).
+var plant: Node = null
+var _preview: Preview = Preview.NONE
+
+@onready var _highlight: ColorRect = $Highlight
+@onready var _base: ColorRect = $Base
+
+const COLOR_A := Color(0.42, 0.78, 0.36, 1.0)  # verde claro
+const COLOR_B := Color(0.36, 0.70, 0.32, 1.0)  # verde oscuro (alterno por fila)
+const COLOR_HOVER := Color(1.0, 1.0, 0.6, 0.35) # amarillo translúcido
+const COLOR_PREVIEW_OK := Color(0.35, 1.0, 0.45, 0.45)
+const COLOR_PREVIEW_BAD := Color(1.0, 0.3, 0.3, 0.45)
+
+## Captura los datos de la celda. NO tocar nodos aquí (aún no está en el árbol).
+func setup(p_col: int, p_row: int) -> void:
+	col = p_col
+	row = p_row
+
+func _ready() -> void:
+	_base.color = COLOR_A if row % 2 == 0 else COLOR_B
+	input_event.connect(_on_input_event)
+	mouse_entered.connect(_on_mouse_entered)
+	mouse_exited.connect(_on_mouse_exited)
+
+func _on_mouse_entered() -> void:
+	# El hover no debe pisar un preview de siembra activo.
+	if _preview == Preview.NONE:
+		_highlight.color = COLOR_HOVER
+
+func _on_mouse_exited() -> void:
+	if _preview == Preview.NONE:
+		_highlight.color = Color.TRANSPARENT
+
+## ── Ocupación (Fase 3) ────────────────────────────────────────────────────
+
+func is_occupied() -> bool:
+	return plant != null and is_instance_valid(plant)
+
+func set_plant(p_plant: Node) -> void:
+	plant = p_plant
+
+func clear_plant() -> void:
+	plant = null
+
+## ── Preview de siembra (Fase 3) ───────────────────────────────────────────
+
+func set_preview(mode: Preview) -> void:
+	_preview = mode
+	_update_preview_color()
+
+func _update_preview_color() -> void:
+	match _preview:
+		Preview.OK:
+			_highlight.color = COLOR_PREVIEW_OK
+		Preview.BAD:
+			_highlight.color = COLOR_PREVIEW_BAD
+		_:
+			_highlight.color = Color.TRANSPARENT
+
+func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		EventBus.cell_clicked.emit(col, row)
